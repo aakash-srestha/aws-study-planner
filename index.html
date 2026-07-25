@@ -498,7 +498,7 @@
     btn.classList.add('spinning');
 
     try {
-      const res  = await fetch('games.json?t=' + Date.now());
+      const res  = await fetch('./games.json?t=' + Date.now());
       if (!res.ok) throw new Error('HTTP ' + res.status);
       const data = await res.json();
 
