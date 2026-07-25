@@ -1,1457 +1,544 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AWS SAA-C03 Study Planner | Exam: June 29, 2026</title>
-    <meta name="description" content="Interactive 19-day study plan for AWS Solutions Architect Associate certification exam">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg-primary: #0a0e1a;
-            --bg-secondary: #111827;
-            --bg-card: #1a2236;
-            --bg-card-hover: #1e2840;
-            --bg-glass: rgba(26, 34, 54, 0.7);
-            --border: rgba(99, 130, 255, 0.15);
-            --border-active: rgba(99, 130, 255, 0.4);
-            --text-primary: #e8ecf4;
-            --text-secondary: #8b95b0;
-            --text-muted: #5a6480;
-            --accent-blue: #6382ff;
-            --accent-purple: #a855f7;
-            --accent-cyan: #22d3ee;
-            --accent-green: #34d399;
-            --accent-orange: #f59e0b;
-            --accent-red: #ef4444;
-            --accent-pink: #ec4899;
-            --gradient-hero: linear-gradient(135deg, #6382ff 0%, #a855f7 50%, #ec4899 100%);
-            --gradient-card: linear-gradient(135deg, rgba(99,130,255,0.08) 0%, rgba(168,85,247,0.08) 100%);
-            --gradient-progress: linear-gradient(90deg, #6382ff, #a855f7, #22d3ee);
-            --gradient-hours: linear-gradient(90deg, #34d399, #22d3ee);
-            --shadow-glow: 0 0 40px rgba(99, 130, 255, 0.15);
-            --shadow-card: 0 4px 24px rgba(0,0,0,0.3);
-            --radius: 16px;
-            --radius-sm: 10px;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Warriors Scoreboard | GSW Game Results</title>
+  <meta name="description" content="Live Golden State Warriors game results, win/loss record, and full game log — powered by ESPN data." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --gsw-gold: #FFC72C;
+      --gsw-blue: #1D428A;
+      --gsw-royal: #006BB6;
+      --bg: #090d1a;
+      --surface: #0f1629;
+      --surface2: #151d35;
+      --border: rgba(255,199,44,0.12);
+      --text: #e8eaf6;
+      --muted: #7b82a0;
+      --win: #00e676;
+      --loss: #ff4d6d;
+      --radius: 16px;
+    }
 
-        body {
-            font-family: 'Inter', -apple-system, sans-serif;
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            line-height: 1.6;
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
+    html { scroll-behavior: smooth; }
 
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: 
-                radial-gradient(ellipse 80% 50% at 20% 20%, rgba(99,130,255,0.08) 0%, transparent 60%),
-                radial-gradient(ellipse 60% 40% at 80% 80%, rgba(168,85,247,0.06) 0%, transparent 60%),
-                radial-gradient(ellipse 50% 30% at 50% 50%, rgba(34,211,238,0.04) 0%, transparent 60%);
-            pointer-events: none; z-index: 0;
-        }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
 
-        .container { max-width: 1300px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+    /* ── Background glow ── */
+    body::before {
+      content: '';
+      position: fixed;
+      top: -200px; left: 50%;
+      transform: translateX(-50%);
+      width: 900px; height: 600px;
+      background: radial-gradient(ellipse, rgba(29,66,138,0.4) 0%, rgba(255,199,44,0.05) 60%, transparent 80%);
+      pointer-events: none;
+      z-index: 0;
+    }
 
-        /* NAV */
-        nav {
-            position: sticky; top: 0; z-index: 100;
-            backdrop-filter: blur(20px);
-            background: rgba(10, 14, 26, 0.85);
-            border-bottom: 1px solid var(--border);
-            padding: 14px 0;
-        }
-        .nav-inner { display: flex; align-items: center; justify-content: space-between; }
-        .nav-logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 1.15rem; }
-        .nav-logo .aws-badge { background: var(--gradient-hero); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-        .nav-links { display: flex; gap: 6px; }
-        .nav-links a { color: var(--text-secondary); text-decoration: none; padding: 8px 16px; border-radius: var(--radius-sm); font-size: 0.875rem; font-weight: 500; transition: all 0.2s; }
-        .nav-links a:hover, .nav-links a.active { color: var(--text-primary); background: rgba(99,130,255,0.1); }
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 2rem;
+      height: 64px;
+      background: rgba(9,13,26,0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 10px;
+      font-weight: 800; font-size: 1.1rem; letter-spacing: -0.02em;
+    }
+    .nav-logo .badge {
+      background: linear-gradient(135deg, var(--gsw-blue), var(--gsw-royal));
+      color: var(--gsw-gold);
+      padding: 4px 10px; border-radius: 8px;
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.05em;
+    }
+    .nav-tag {
+      font-size: 0.78rem; color: var(--muted);
+      padding: 4px 12px; border: 1px solid var(--border);
+      border-radius: 20px;
+    }
+    #refresh-btn {
+      display: flex; align-items: center; gap: 6px;
+      padding: 8px 16px;
+      background: rgba(255,199,44,0.1);
+      border: 1px solid rgba(255,199,44,0.3);
+      color: var(--gsw-gold);
+      border-radius: 10px;
+      font-size: 0.8rem; font-weight: 600; cursor: pointer;
+      transition: all 0.2s;
+    }
+    #refresh-btn:hover { background: rgba(255,199,44,0.2); transform: scale(1.04); }
+    #refresh-btn.spinning svg { animation: spin 0.8s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
 
-        /* HERO */
-        .hero { padding: 60px 0 40px; text-align: center; }
-        .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(99,130,255,0.1); border: 1px solid rgba(99,130,255,0.2); padding: 6px 18px; border-radius: 100px; font-size: 0.8rem; font-weight: 600; color: var(--accent-blue); margin-bottom: 20px; letter-spacing: 0.5px; }
-        .hero-badge .pulse { width: 8px; height: 8px; background: var(--accent-green); border-radius: 50%; animation: pulse 2s infinite; }
-        @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(1.3); } }
-        .hero h1 { font-size: 3.2rem; font-weight: 900; line-height: 1.15; margin-bottom: 16px; background: var(--gradient-hero); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-        .hero p { color: var(--text-secondary); font-size: 1.1rem; max-width: 700px; margin: 0 auto 32px; }
+    /* ── HERO ── */
+    .hero {
+      position: relative; z-index: 1;
+      text-align: center;
+      padding: 4rem 1.5rem 2rem;
+    }
+    .team-chip {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(29,66,138,0.3);
+      border: 1px solid rgba(29,66,138,0.6);
+      padding: 6px 16px; border-radius: 30px;
+      font-size: 0.78rem; font-weight: 600; color: #90b4e8;
+      margin-bottom: 1.4rem;
+    }
+    .team-chip span { width: 8px; height: 8px; border-radius: 50%; background: var(--gsw-gold); display: block; }
+    .hero h1 {
+      font-size: clamp(2.4rem, 6vw, 4.2rem);
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -0.04em;
+      background: linear-gradient(135deg, #ffffff 30%, var(--gsw-gold) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      margin-bottom: 0.8rem;
+    }
+    .hero p {
+      color: var(--muted); font-size: 1rem; max-width: 500px; margin: 0 auto;
+    }
 
-        /* Countdown */
-        .countdown-grid { display: flex; justify-content: center; gap: 16px; margin-bottom: 32px; }
-        .countdown-item { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px 28px; min-width: 100px; text-align: center; box-shadow: var(--shadow-card); }
-        .countdown-item .number { font-size: 2.8rem; font-weight: 900; font-family: 'JetBrains Mono', monospace; background: var(--gradient-hero); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; line-height: 1; }
-        .countdown-item .label { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1.5px; margin-top: 6px; font-weight: 600; }
+    /* ── RECORD CARDS ── */
+    .record-strip {
+      position: relative; z-index: 1;
+      display: flex; justify-content: center; gap: 1rem;
+      flex-wrap: wrap;
+      padding: 1.5rem 1.5rem 0;
+    }
+    .record-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.4rem 2rem;
+      text-align: center;
+      min-width: 130px;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .record-card:hover { transform: translateY(-3px); border-color: rgba(255,199,44,0.3); }
+    .record-card .val {
+      font-size: 2.4rem; font-weight: 900; letter-spacing: -0.04em;
+      line-height: 1;
+    }
+    .record-card .lbl {
+      font-size: 0.7rem; font-weight: 600; text-transform: uppercase;
+      letter-spacing: 0.1em; color: var(--muted); margin-top: 4px;
+    }
+    .record-card.wins .val { color: var(--win); }
+    .record-card.losses .val { color: var(--loss); }
+    .record-card.pct .val { color: var(--gsw-gold); }
+    .record-card.streak .val { font-size: 1.6rem; }
 
-        /* Domain chips */
-        .domains-bar { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 16px; }
-        .domain-chip { display: flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 100px; font-size: 0.78rem; font-weight: 600; border: 1px solid; }
-        .domain-chip.secure { color: var(--accent-blue); border-color: rgba(99,130,255,0.25); background: rgba(99,130,255,0.08); }
-        .domain-chip.resilient { color: var(--accent-green); border-color: rgba(52,211,153,0.25); background: rgba(52,211,153,0.08); }
-        .domain-chip.performing { color: var(--accent-cyan); border-color: rgba(34,211,238,0.25); background: rgba(34,211,238,0.08); }
-        .domain-chip.cost { color: var(--accent-orange); border-color: rgba(245,158,11,0.25); background: rgba(245,158,11,0.08); }
+    /* ── LATEST GAME ── */
+    .latest-wrap {
+      position: relative; z-index: 1;
+      padding: 2rem 1.5rem 0;
+      max-width: 820px; margin: 0 auto;
+    }
+    .section-title {
+      font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.15em; color: var(--muted);
+      margin-bottom: 1rem;
+    }
+    .latest-card {
+      background: linear-gradient(135deg, var(--surface) 0%, var(--surface2) 100%);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 2rem;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 1rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .latest-card::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(255,199,44,0.03), transparent 60%);
+      pointer-events: none;
+    }
+    .team-side { display: flex; flex-direction: column; }
+    .team-side.away { align-items: flex-start; }
+    .team-side.home { align-items: flex-end; }
+    .team-abbr {
+      font-size: 2.6rem; font-weight: 900; letter-spacing: -0.03em;
+    }
+    .team-name { font-size: 0.8rem; color: var(--muted); margin-top: 2px; }
+    .team-location { font-size: 0.7rem; color: var(--muted); opacity: 0.6; }
+    .gsw-highlight .team-abbr { color: var(--gsw-gold); }
 
-        /* Exam Info Bar */
-        .exam-info-bar { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px 32px; margin-bottom: 48px; display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 24px; }
-        .exam-stat { text-align: center; }
-        .exam-stat .val { font-size: 1.5rem; font-weight: 800; font-family: 'JetBrains Mono', monospace; }
-        .exam-stat .val.blue { color: var(--accent-blue); }
-        .exam-stat .val.green { color: var(--accent-green); }
-        .exam-stat .val.purple { color: var(--accent-purple); }
-        .exam-stat .val.orange { color: var(--accent-orange); }
-        .exam-stat .val.cyan { color: var(--accent-cyan); }
-        .exam-stat .val.pink { color: var(--accent-pink); }
-        .exam-stat .desc { font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; margin-top: 4px; }
+    .score-center { text-align: center; }
+    .score-digits {
+      font-size: 3.6rem; font-weight: 900; letter-spacing: -0.05em;
+      line-height: 1;
+    }
+    .score-sep { color: var(--muted); padding: 0 6px; }
+    .result-pill {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 4px 14px; border-radius: 20px;
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em;
+    }
+    .result-pill.win  { background: rgba(0,230,118,0.15); color: var(--win); border: 1px solid rgba(0,230,118,0.3); }
+    .result-pill.loss { background: rgba(255,77,109,0.15); color: var(--loss); border: 1px solid rgba(255,77,109,0.3); }
+    .game-meta { font-size: 0.72rem; color: var(--muted); margin-top: 6px; }
 
-        /* PROGRESS */
-        .progress-section { margin-bottom: 48px; }
-        .progress-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px 32px; box-shadow: var(--shadow-card); }
-        .progress-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
-        .progress-header h3 { font-size: 1rem; font-weight: 700; }
-        .progress-pct { font-family: 'JetBrains Mono', monospace; font-size: 1.4rem; font-weight: 700; background: var(--gradient-hero); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-        .progress-bar-outer { height: 10px; background: rgba(99,130,255,0.1); border-radius: 100px; overflow: hidden; margin-bottom: 16px; }
-        .progress-bar-inner { height: 100%; background: var(--gradient-progress); border-radius: 100px; transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1); background-size: 200% 100%; animation: shimmer 2s infinite linear; }
-        @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
-        .progress-stats { display: flex; gap: 24px; flex-wrap: wrap; }
-        .progress-stat { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: var(--text-secondary); }
-        .progress-stat .dot { width: 10px; height: 10px; border-radius: 50%; }
-        .progress-stat .dot.course { background: var(--accent-blue); }
-        .progress-stat .dot.lab { background: var(--accent-green); }
-        .progress-stat .dot.exam { background: var(--accent-purple); }
-        .progress-stat .dot.hours { background: var(--accent-cyan); }
+    /* ── GAME LOG ── */
+    .log-wrap {
+      position: relative; z-index: 1;
+      max-width: 820px; margin: 2rem auto 0;
+      padding: 0 1.5rem 4rem;
+    }
+    .log-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 1rem;
+    }
+    #filter-btns { display: flex; gap: 6px; }
+    .filter-btn {
+      padding: 5px 14px; border-radius: 20px;
+      font-size: 0.75rem; font-weight: 600; cursor: pointer;
+      border: 1px solid var(--border);
+      background: transparent; color: var(--muted);
+      transition: all 0.2s;
+    }
+    .filter-btn.active, .filter-btn:hover {
+      background: rgba(255,199,44,0.12);
+      border-color: rgba(255,199,44,0.4);
+      color: var(--gsw-gold);
+    }
 
-        /* Hours tracker */
-        .hours-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px 32px; box-shadow: var(--shadow-card); margin-bottom: 48px; }
-        .hours-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
-        .hours-header h3 { font-size: 1rem; font-weight: 700; display: flex; align-items: center; gap: 8px; }
-        .hours-display { font-family: 'JetBrains Mono', monospace; font-size: 1.3rem; font-weight: 700; color: var(--accent-cyan); }
-        .hours-bar-outer { height: 10px; background: rgba(34,211,238,0.1); border-radius: 100px; overflow: hidden; margin-bottom: 12px; }
-        .hours-bar-inner { height: 100%; background: var(--gradient-hours); border-radius: 100px; transition: width 0.6s ease; }
-        .hours-input-row { display: flex; align-items: center; gap: 12px; }
-        .hours-input-row label { font-size: 0.85rem; color: var(--text-secondary); }
-        .hours-input { width: 80px; background: var(--bg-primary); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 8px 12px; color: var(--text-primary); font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; outline: none; }
-        .hours-input:focus { border-color: var(--accent-cyan); }
-        .hours-btn { background: rgba(34,211,238,0.1); border: 1px solid rgba(34,211,238,0.25); color: var(--accent-cyan); padding: 8px 18px; border-radius: var(--radius-sm); font-size: 0.82rem; font-weight: 600; cursor: pointer; transition: all 0.2s; font-family: 'Inter', sans-serif; }
-        .hours-btn:hover { background: rgba(34,211,238,0.2); }
-        .hours-milestone { display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-muted); margin-top: 6px; }
-        .hours-milestone span.reached { color: var(--accent-green); font-weight: 600; }
+    .game-row {
+      display: grid;
+      grid-template-columns: 90px 1fr auto auto;
+      align-items: center; gap: 1rem;
+      padding: 14px 18px;
+      border-radius: 12px;
+      border: 1px solid transparent;
+      transition: all 0.2s;
+      cursor: default;
+    }
+    .game-row:hover {
+      background: var(--surface);
+      border-color: var(--border);
+      transform: translateX(4px);
+    }
+    .game-row + .game-row { margin-top: 6px; }
+    .game-date { font-size: 0.78rem; color: var(--muted); white-space: nowrap; }
+    .matchup { font-size: 0.9rem; font-weight: 600; }
+    .matchup .opp { color: var(--muted); font-weight: 400; font-size: 0.8rem; }
+    .home-away-tag { font-size: 0.65rem; padding: 2px 8px; border-radius: 8px; margin-left: 6px; font-weight: 600; vertical-align: middle; }
+    .home-away-tag.home { background: rgba(29,66,138,0.3); color: #90b4e8; }
+    .home-away-tag.away { background: rgba(255,255,255,0.07); color: var(--muted); }
+    .score-col { font-size: 0.88rem; font-weight: 700; white-space: nowrap; }
+    .wl-badge {
+      width: 28px; height: 28px; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.75rem; font-weight: 800;
+    }
+    .wl-badge.W { background: rgba(0,230,118,0.15); color: var(--win); }
+    .wl-badge.L { background: rgba(255,77,109,0.15); color: var(--loss); }
 
-        /* METHODOLOGY */
-        .methodology-section { margin-bottom: 48px; }
-        .method-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; }
-        .method-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; transition: all 0.3s; position: relative; overflow: hidden; }
-        .method-card:hover { border-color: var(--border-active); transform: translateY(-2px); }
-        .method-card .step-num { position: absolute; top: 12px; right: 16px; font-size: 3rem; font-weight: 900; font-family: 'JetBrains Mono', monospace; opacity: 0.06; color: var(--accent-blue); }
-        .method-card .m-icon { font-size: 1.5rem; margin-bottom: 12px; }
-        .method-card h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 8px; }
-        .method-card p { font-size: 0.82rem; color: var(--text-secondary); line-height: 1.6; }
-        .method-card .do-dont { margin-top: 12px; font-size: 0.78rem; }
-        .method-card .do { color: var(--accent-green); }
-        .method-card .dont { color: var(--accent-red); }
+    .divider {
+      height: 1px; background: var(--border);
+      margin: 1rem 0; border-radius: 1px;
+    }
 
-        /* Phase tabs */
-        .phase-tabs { display: flex; gap: 8px; margin-bottom: 32px; flex-wrap: wrap; }
-        .phase-tab { padding: 10px 22px; border-radius: var(--radius-sm); font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: all 0.25s; border: 1px solid var(--border); background: var(--bg-card); color: var(--text-secondary); }
-        .phase-tab:hover { border-color: var(--border-active); color: var(--text-primary); }
-        .phase-tab.active { background: rgba(99,130,255,0.12); border-color: var(--accent-blue); color: var(--accent-blue); }
-        .phase-tab .tab-count { display: inline-flex; align-items: center; justify-content: center; background: rgba(99,130,255,0.15); border-radius: 100px; padding: 2px 8px; font-size: 0.72rem; margin-left: 6px; }
+    /* ── LOADING / ERROR ── */
+    #loading {
+      position: fixed; inset: 0; z-index: 999;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 1rem;
+      background: var(--bg);
+    }
+    .loader-ring {
+      width: 52px; height: 52px;
+      border: 3px solid rgba(255,199,44,0.15);
+      border-top-color: var(--gsw-gold);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    #loading p { color: var(--muted); font-size: 0.9rem; }
 
-        /* Day cards */
-        .days-grid { display: flex; flex-direction: column; gap: 16px; margin-bottom: 48px; }
-        .day-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-card); transition: all 0.3s; }
-        .day-card:hover { border-color: var(--border-active); transform: translateY(-2px); box-shadow: var(--shadow-glow); }
-        .day-card.completed { border-color: rgba(52,211,153,0.3); }
-        .day-card.today { border-color: var(--accent-blue); box-shadow: 0 0 30px rgba(99,130,255,0.2); }
-        .day-card.today::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--gradient-hero); }
-        .day-header { display: flex; align-items: center; justify-content: space-between; padding: 18px 24px; cursor: pointer; position: relative; }
-        .day-left { display: flex; align-items: center; gap: 16px; }
-        .day-number { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1rem; font-family: 'JetBrains Mono', monospace; }
-        .day-card.phase-course .day-number { background: rgba(99,130,255,0.12); color: var(--accent-blue); }
-        .day-card.phase-lab .day-number { background: rgba(52,211,153,0.12); color: var(--accent-green); }
-        .day-card.phase-exam .day-number { background: rgba(168,85,247,0.12); color: var(--accent-purple); }
-        .day-card.phase-final .day-number { background: rgba(239,68,68,0.12); color: var(--accent-red); }
-        .day-info h3 { font-size: 1rem; font-weight: 700; margin-bottom: 2px; }
-        .day-info .date { font-size: 0.8rem; color: var(--text-muted); }
-        .day-right { display: flex; align-items: center; gap: 12px; }
-        .day-tag { padding: 4px 12px; border-radius: 100px; font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
-        .tag-course { background: rgba(99,130,255,0.1); color: var(--accent-blue); }
-        .tag-lab { background: rgba(52,211,153,0.1); color: var(--accent-green); }
-        .tag-exam { background: rgba(168,85,247,0.1); color: var(--accent-purple); }
-        .tag-review { background: rgba(245,158,11,0.1); color: var(--accent-orange); }
-        .tag-cheatsheet { background: rgba(236,72,153,0.1); color: var(--accent-pink); }
-        .tag-gemini { background: rgba(34,211,238,0.1); color: var(--accent-cyan); }
-        .time-est { font-size: 0.8rem; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; }
-        .day-check { width: 24px; height: 24px; border-radius: 8px; border: 2px solid var(--border); cursor: pointer; transition: all 0.25s; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-        .day-check:hover { border-color: var(--accent-green); }
-        .day-check.checked { background: var(--accent-green); border-color: var(--accent-green); }
-        .day-check.checked::after { content: '✓'; color: #fff; font-size: 14px; font-weight: 700; }
-        .expand-icon { color: var(--text-muted); transition: transform 0.3s; font-size: 1.2rem; }
-        .day-card.expanded .expand-icon { transform: rotate(180deg); }
-        .day-body { max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.22, 1, 0.36, 1); }
-        .day-card.expanded .day-body { max-height: 3000px; }
-        .day-content { padding: 0 24px 24px; border-top: 1px solid var(--border); }
-        .task-list { list-style: none; margin-top: 16px; }
-        .task-item { display: flex; align-items: flex-start; gap: 12px; padding: 10px 0; border-bottom: 1px solid rgba(99,130,255,0.06); }
-        .task-item:last-child { border-bottom: none; }
-        .task-check { width: 20px; height: 20px; border-radius: 6px; border: 2px solid var(--border); cursor: pointer; transition: all 0.2s; flex-shrink: 0; margin-top: 2px; display: flex; align-items: center; justify-content: center; }
-        .task-check:hover { border-color: var(--accent-green); }
-        .task-check.checked { background: var(--accent-green); border-color: var(--accent-green); }
-        .task-check.checked::after { content: '✓'; color: #fff; font-size: 11px; font-weight: 700; }
-        .task-check.checked + .task-text { text-decoration: line-through; opacity: 0.5; }
-        .task-text { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.5; transition: all 0.2s; }
-        .task-text strong { color: var(--text-primary); font-weight: 600; }
-        .task-text .service-tag { display: inline-block; padding: 1px 8px; border-radius: 4px; font-size: 0.72rem; font-weight: 600; font-family: 'JetBrains Mono', monospace; background: rgba(99,130,255,0.1); color: var(--accent-blue); margin: 0 2px; }
-        .task-text .gemini-tag { display: inline-block; padding: 1px 8px; border-radius: 4px; font-size: 0.72rem; font-weight: 600; font-family: 'JetBrains Mono', monospace; background: rgba(34,211,238,0.1); color: var(--accent-cyan); margin: 0 2px; }
-        .section-label { display: flex; align-items: center; gap: 8px; margin-top: 18px; margin-bottom: 8px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-muted); }
+    #error-banner {
+      display: none;
+      margin: 2rem auto; max-width: 500px;
+      background: rgba(255,77,109,0.1);
+      border: 1px solid rgba(255,77,109,0.3);
+      color: var(--loss);
+      padding: 1rem 1.4rem; border-radius: 12px;
+      text-align: center; font-size: 0.9rem;
+      position: relative; z-index: 1;
+    }
 
-        /* Resources */
-        .resources-section { margin-bottom: 48px; }
-        .section-title { font-size: 1.6rem; font-weight: 800; margin-bottom: 24px; display: flex; align-items: center; gap: 12px; }
-        .section-title .icon { font-size: 1.4rem; }
-        .resources-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
-        .resource-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; transition: all 0.3s; text-decoration: none; color: inherit; display: block; }
-        .resource-card:hover { border-color: var(--border-active); transform: translateY(-2px); box-shadow: var(--shadow-glow); }
-        .resource-card .r-icon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; margin-bottom: 14px; }
-        .resource-card.aws-academy .r-icon { background: rgba(245,158,11,0.12); }
-        .resource-card.exam-topics .r-icon { background: rgba(99,130,255,0.12); }
-        .resource-card.exam-prepper .r-icon { background: rgba(168,85,247,0.12); }
-        .resource-card.stephane .r-icon { background: rgba(52,211,153,0.12); }
-        .resource-card.skill-builder .r-icon { background: rgba(236,72,153,0.12); }
-        .resource-card.gemini .r-icon { background: rgba(34,211,238,0.12); }
-        .resource-card.cheatsheet .r-icon { background: rgba(239,68,68,0.12); }
-        .resource-card.community .r-icon { background: rgba(245,158,11,0.12); }
-        .resource-card h4 { font-size: 1rem; font-weight: 700; margin-bottom: 6px; }
-        .resource-card p { font-size: 0.83rem; color: var(--text-secondary); line-height: 1.5; }
-        .resource-card .link-arrow { display: inline-flex; align-items: center; gap: 4px; margin-top: 12px; font-size: 0.82rem; font-weight: 600; color: var(--accent-blue); }
-        .resource-card .card-tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; }
-        .resource-card .card-tag.free { background: rgba(52,211,153,0.12); color: var(--accent-green); }
-        .resource-card .card-tag.paid { background: rgba(245,158,11,0.12); color: var(--accent-orange); }
-        .resource-card .card-tag.ai { background: rgba(34,211,238,0.12); color: var(--accent-cyan); }
+    #app { display: none; }
 
-        /* Tips */
-        .tips-section { margin-bottom: 48px; }
-        .tips-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
-        .tip-card { background: var(--gradient-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; }
-        .tip-card .tip-num { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 8px; background: rgba(99,130,255,0.12); color: var(--accent-blue); font-weight: 800; font-size: 0.8rem; font-family: 'JetBrains Mono', monospace; margin-bottom: 12px; }
-        .tip-card h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 8px; }
-        .tip-card p { font-size: 0.83rem; color: var(--text-secondary); line-height: 1.6; }
-        .tip-card .highlight { color: var(--accent-cyan); font-weight: 600; }
+    /* ── Footer ── */
+    footer {
+      text-align: center; padding: 2rem 1rem;
+      font-size: 0.72rem; color: var(--muted);
+      border-top: 1px solid var(--border);
+      position: relative; z-index: 1;
+    }
 
-        /* FAQ */
-        .faq-section { margin-bottom: 48px; }
-        .faq-item { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 12px; overflow: hidden; transition: all 0.3s; }
-        .faq-item:hover { border-color: var(--border-active); }
-        .faq-q { padding: 18px 24px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-weight: 600; font-size: 0.95rem; }
-        .faq-q .faq-icon { transition: transform 0.3s; color: var(--accent-blue); }
-        .faq-item.open .faq-icon { transform: rotate(45deg); }
-        .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
-        .faq-item.open .faq-a { max-height: 500px; }
-        .faq-a-inner { padding: 0 24px 18px; font-size: 0.88rem; color: var(--text-secondary); line-height: 1.7; }
-
-        /* Motivation */
-        .motivation { text-align: center; padding: 32px; margin-bottom: 48px; font-style: italic; color: var(--text-muted); font-size: 1rem; border-left: 3px solid var(--accent-purple); background: rgba(168,85,247,0.04); border-radius: 0 var(--radius) var(--radius) 0; }
-        .motivation .author { display: block; margin-top: 8px; font-style: normal; font-weight: 600; color: var(--accent-purple); font-size: 0.85rem; }
-
-        /* Footer */
-        footer { text-align: center; padding: 32px 0; border-top: 1px solid var(--border); color: var(--text-muted); font-size: 0.8rem; }
-
-        /* Reset btn */
-        .reset-btn { background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.2); color: var(--accent-red); padding: 8px 18px; border-radius: var(--radius-sm); font-size: 0.8rem; font-weight: 600; cursor: pointer; transition: all 0.2s; font-family: 'Inter', sans-serif; }
-        .reset-btn:hover { background: rgba(239,68,68,0.2); }
-
-        .today-label { display: inline-flex; align-items: center; gap: 4px; padding: 2px 10px; border-radius: 100px; font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; background: rgba(99,130,255,0.15); color: var(--accent-blue); animation: pulse 2s infinite; }
-
-        .section-divider { border: none; border-top: 1px solid var(--border); margin: 48px 0; }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 2rem; }
-            .countdown-grid { gap: 8px; }
-            .countdown-item { padding: 14px 16px; min-width: 70px; }
-            .countdown-item .number { font-size: 2rem; }
-            .day-header { padding: 14px 16px; flex-wrap: wrap; gap: 8px; }
-            .day-content { padding: 0 16px 16px; }
-            .nav-links { display: none; }
-            .domains-bar { gap: 6px; }
-            .domain-chip { font-size: 0.7rem; padding: 6px 12px; }
-            .exam-info-bar { grid-template-columns: repeat(3, 1fr); }
-            .method-grid { grid-template-columns: 1fr; }
-        }
-
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: var(--bg-primary); }
-        ::-webkit-scrollbar-thumb { background: rgba(99,130,255,0.3); border-radius: 100px; }
-    </style>
+    @media (max-width: 560px) {
+      .latest-card { grid-template-columns: 1fr; text-align: center; gap: 1.2rem; }
+      .team-side.home { align-items: center; }
+      .team-side.away { align-items: center; }
+      .game-row { grid-template-columns: 70px 1fr auto auto; gap: 0.5rem; }
+    }
+  </style>
 </head>
 <body>
 
-<nav>
-    <div class="container nav-inner">
-        <div class="nav-logo"><span>☁️</span><span class="aws-badge">AWS SAA-C03 Planner</span></div>
-        <div class="nav-links">
-            <a href="#methodology" class="active">Method</a>
-            <a href="#schedule">Schedule</a>
-            <a href="#resources">Resources</a>
-            <a href="#tips">Tips</a>
-            <a href="#faq">FAQ</a>
-        </div>
-        <button class="reset-btn" onclick="resetProgress()">↺ Reset Progress</button>
-    </div>
-</nav>
-
-<!-- HERO -->
-<section class="hero">
-    <div class="container">
-        <div class="hero-badge"><span class="pulse"></span> Tekbay Apprenticeship Program</div>
-        <h1>Your 19-Day Path to<br>AWS Certification</h1>
-        <p>A structured study plan combining Stephane Maarek's course, AWS Academy Labs, Gemini Pro AI, cheat sheets, and mock exams — built on proven strategies from those who passed.</p>
-        
-        <div class="countdown-grid" id="countdown">
-            <div class="countdown-item"><div class="number" id="cd-days">--</div><div class="label">Days</div></div>
-            <div class="countdown-item"><div class="number" id="cd-hours">--</div><div class="label">Hours</div></div>
-            <div class="countdown-item"><div class="number" id="cd-mins">--</div><div class="label">Minutes</div></div>
-            <div class="countdown-item"><div class="number" id="cd-secs">--</div><div class="label">Seconds</div></div>
-        </div>
-
-        <div class="domains-bar">
-            <div class="domain-chip secure">🔐 Secure — 30%</div>
-            <div class="domain-chip resilient">🛡️ Resilient — 26%</div>
-            <div class="domain-chip performing">⚡ High-Perf — 24%</div>
-            <div class="domain-chip cost">💰 Cost-Opt — 20%</div>
-        </div>
-    </div>
-</section>
-
-<!-- EXAM STATS -->
-<div class="container">
-    <div class="exam-info-bar">
-        <div class="exam-stat"><div class="val blue">65</div><div class="desc">Questions</div></div>
-        <div class="exam-stat"><div class="val green">130</div><div class="desc">Minutes</div></div>
-        <div class="exam-stat"><div class="val purple">720</div><div class="desc">Pass Score</div></div>
-        <div class="exam-stat"><div class="val orange">1000</div><div class="desc">Max Score</div></div>
-        <div class="exam-stat"><div class="val cyan">~27h</div><div class="desc">Course</div></div>
-        <div class="exam-stat"><div class="val pink">80-120h</div><div class="desc">Rec. Study</div></div>
-    </div>
+<!-- Loading -->
+<div id="loading">
+  <div class="loader-ring"></div>
+  <p>Loading Warriors data…</p>
 </div>
 
-<!-- STUDY METHODOLOGY (from Reddit guide) -->
-<div class="container methodology-section" id="methodology">
-    <h2 class="section-title"><span class="icon">🧭</span> Study Methodology (Step-by-Step)</h2>
-    <div class="method-grid">
-        <div class="method-card">
-            <div class="step-num">1</div>
-            <div class="m-icon">📋</div>
-            <h4>Exam Blueprint First</h4>
-            <p>Read the official AWS Exam Guide to understand structure, domains, and objectives. Don't skip this — it's your roadmap.</p>
-            <div class="do-dont">
-                <div class="do">✅ Dig deep into official documentation</div>
-                <div class="dont">❌ Don't just skim the high-level summaries</div>
-            </div>
-        </div>
-        <div class="method-card">
-            <div class="step-num">2</div>
-            <div class="m-icon">📺</div>
-            <h4>Structured Course</h4>
-            <p>Follow Stephane Maarek's course at 1.25x speed. Take handwritten notes and make your own slides for retention.</p>
-            <div class="do-dont">
-                <div class="do">✅ Active learning with notes</div>
-                <div class="dont">❌ Don't passively watch without engaging</div>
-            </div>
-        </div>
-        <div class="method-card">
-            <div class="step-num">3</div>
-            <div class="m-icon">🖥️</div>
-            <h4>Hands-On Labs</h4>
-            <p>Use AWS Academy, Free Tier, and Skill Builder labs. Theory alone won't cut it — you must practice with real services.</p>
-            <div class="do-dont">
-                <div class="do">✅ Complete labs for every major service</div>
-                <div class="dont">❌ Don't skip practical exercises</div>
-            </div>
-        </div>
-        <div class="method-card">
-            <div class="step-num">4</div>
-            <div class="m-icon">🤖</div>
-            <h4>AI-Powered Review</h4>
-            <p>Use Gemini Pro to explain complex concepts, quiz yourself, compare services, and generate scenario-based questions.</p>
-            <div class="do-dont">
-                <div class="do">✅ Ask "explain like I'm 5" for hard topics</div>
-                <div class="dont">❌ Don't rely solely on AI — verify with docs</div>
-            </div>
-        </div>
-        <div class="method-card">
-            <div class="step-num">5</div>
-            <div class="m-icon">📝</div>
-            <h4>Practice Exams</h4>
-            <p>Take timed mock exams on ExamTopics, ExamPrepper, and Google Forms. Target 78-86% before the real exam.</p>
-            <div class="do-dont">
-                <div class="do">✅ Understand concepts behind answers</div>
-                <div class="dont">❌ Don't rely on memorization</div>
-            </div>
-        </div>
-        <div class="method-card">
-            <div class="step-num">6</div>
-            <div class="m-icon">📑</div>
-            <h4>Cheat Sheets & Review</h4>
-            <p>Use DigitalCloud and Cloudoku cheat sheets for quick revision. Supplement — don't replace — your deep study.</p>
-            <div class="do-dont">
-                <div class="do">✅ Quick refresh before exam</div>
-                <div class="dont">❌ Don't depend solely on cheat sheets</div>
-            </div>
-        </div>
+<!-- Error -->
+<div id="error-banner" role="alert"></div>
+
+<!-- App -->
+<div id="app">
+
+  <!-- Nav -->
+  <nav>
+    <div class="nav-logo">
+      <span>🏀</span>
+      <span>Warriors</span>
+      <span class="badge">GSW</span>
     </div>
+    <span class="nav-tag" id="updated-tag">—</span>
+    <button id="refresh-btn" onclick="loadData()">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M23 4v6h-6"/><path d="M1 20v-6h6"/>
+        <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
+      </svg>
+      Refresh
+    </button>
+  </nav>
+
+  <!-- Hero -->
+  <header class="hero">
+    <div class="team-chip"><span></span> Golden State Warriors · 2025–26</div>
+    <h1>Warriors<br>Scoreboard</h1>
+    <p>Latest results, win–loss record, and full game log.</p>
+  </header>
+
+  <!-- Record strip -->
+  <section class="record-strip" id="record-strip" aria-label="Season record">
+    <div class="record-card wins">
+      <div class="val" id="stat-wins">—</div>
+      <div class="lbl">Wins</div>
+    </div>
+    <div class="record-card losses">
+      <div class="val" id="stat-losses">—</div>
+      <div class="lbl">Losses</div>
+    </div>
+    <div class="record-card pct">
+      <div class="val" id="stat-pct">—</div>
+      <div class="lbl">Win %</div>
+    </div>
+    <div class="record-card streak">
+      <div class="val" id="stat-streak">—</div>
+      <div class="lbl">Streak</div>
+    </div>
+  </section>
+
+  <!-- Latest game -->
+  <section class="latest-wrap" aria-label="Most recent game">
+    <div class="section-title">Most Recent Game</div>
+    <div class="latest-card" id="latest-card">
+      <!-- filled by JS -->
+    </div>
+  </section>
+
+  <!-- Game log -->
+  <section class="log-wrap" aria-label="Full game log">
+    <div class="log-header">
+      <div class="section-title" style="margin:0">Game Log</div>
+      <div id="filter-btns">
+        <button class="filter-btn active" id="btn-all"  onclick="setFilter('all')">All</button>
+        <button class="filter-btn"        id="btn-wins" onclick="setFilter('W')">Wins</button>
+        <button class="filter-btn"        id="btn-losses" onclick="setFilter('L')">Losses</button>
+      </div>
+    </div>
+    <div id="game-log"></div>
+  </section>
+
 </div>
 
-<!-- PROGRESS -->
-<div class="container progress-section">
-    <div class="progress-card">
-        <div class="progress-header">
-            <h3>📊 Overall Study Progress</h3>
-            <div class="progress-pct" id="progress-pct">0%</div>
-        </div>
-        <div class="progress-bar-outer">
-            <div class="progress-bar-inner" id="progress-bar" style="width: 0%"></div>
-        </div>
-        <div class="progress-stats">
-            <div class="progress-stat"><span class="dot course"></span> <span id="stat-course">0/15</span> Course</div>
-            <div class="progress-stat"><span class="dot lab"></span> <span id="stat-lab">0/1</span> Labs</div>
-            <div class="progress-stat"><span class="dot exam"></span> <span id="stat-exam">0/3</span> Exam Prep</div>
-        </div>
-    </div>
-</div>
-
-<!-- HOURS TRACKER -->
-<div class="container">
-    <div class="hours-card">
-        <div class="hours-header">
-            <h3>⏱️ Study Hours Tracker <span style="font-weight:400; font-size:0.8rem; color: var(--text-muted);">(Target: 80–120 hrs)</span></h3>
-            <div class="hours-display" id="hours-display">0.0 / 80 hrs</div>
-        </div>
-        <div class="hours-bar-outer">
-            <div class="hours-bar-inner" id="hours-bar" style="width: 0%"></div>
-        </div>
-        <div class="hours-milestone">
-            <span id="m-0">0h</span>
-            <span id="m-40">40h</span>
-            <span id="m-60">60h</span>
-            <span id="m-80">80h ✓</span>
-            <span id="m-100">100h</span>
-            <span id="m-120">120h 🎯</span>
-        </div>
-        <div class="hours-input-row" style="margin-top: 16px;">
-            <label>Log today's hours:</label>
-            <input type="number" class="hours-input" id="hours-input" min="0" max="12" step="0.5" placeholder="0.0">
-            <button class="hours-btn" onclick="addHours()">+ Add Hours</button>
-            <span style="font-size: 0.78rem; color: var(--text-muted); margin-left: 8px;" id="hours-log-msg"></span>
-        </div>
-    </div>
-</div>
-
-<!-- SCHEDULE -->
-<div class="container" id="schedule">
-    <h2 class="section-title"><span class="icon">📅</span> Study Schedule</h2>
-    <div class="phase-tabs">
-        <div class="phase-tab active" data-phase="all">All Days <span class="tab-count">19</span></div>
-        <div class="phase-tab" data-phase="course">📘 Course <span class="tab-count">15</span></div>
-        <div class="phase-tab" data-phase="lab">🧪 Labs <span class="tab-count">1</span></div>
-        <div class="phase-tab" data-phase="exam">📝 Exam Prep <span class="tab-count">3</span></div>
-    </div>
-    <div class="days-grid" id="days-grid"></div>
-</div>
-
-<!-- MOTIVATION -->
-<div class="container">
-    <div class="motivation">
-        "Making my own notes/slides helped me study. Practice exams were the secret sauce — I scored a perfect 1000 on my first try! The actual exam was the easiest compared to all practice exams I took."
-        <span class="author">— Reddit SAA Success Stories (Combined)</span>
-    </div>
-</div>
-
-<!-- RESOURCES -->
-<div class="container resources-section" id="resources">
-    <h2 class="section-title"><span class="icon">🔗</span> Your Study Resources</h2>
-    <div class="resources-grid">
-        <a href="https://awsacademy.instructure.com/courses/167408" target="_blank" class="resource-card aws-academy">
-            <div class="card-tag free">FREE</div>
-            <div class="r-icon">🎓</div>
-            <h4>AWS Academy</h4>
-            <p>Challenge Labs & Guided Labs for hands-on practice with real AWS services and environments.</p>
-            <span class="link-arrow">Open AWS Academy →</span>
-        </a>
-        <a href="https://www.examtopics.com/exams/amazon/" target="_blank" class="resource-card exam-topics">
-            <div class="card-tag free">FREE</div>
-            <div class="r-icon">📋</div>
-            <h4>Exam Topics</h4>
-            <p>Community-sourced practice questions with discussions. Great for pattern recognition.</p>
-            <span class="link-arrow">Open Exam Topics →</span>
-        </a>
-        <a href="https://www.examprepper.co/" target="_blank" class="resource-card exam-prepper">
-            <div class="card-tag free">FREE</div>
-            <div class="r-icon">🧠</div>
-            <h4>ExamPrepper</h4>
-            <p>Free exam simulation platform for timed practice tests under real exam conditions.</p>
-            <span class="link-arrow">Open ExamPrepper →</span>
-        </a>
-        <a href="#" class="resource-card stephane">
-            <div class="card-tag paid">COURSE</div>
-            <div class="r-icon">📺</div>
-            <h4>Stephane Maarek</h4>
-            <p>Ultimate AWS SAA-C03 course — ~27 hours, 33 sections, 400 lectures with quizzes.</p>
-            <span class="link-arrow">Open on Udemy →</span>
-        </a>
-        <a href="https://explore.skillbuilder.aws/" target="_blank" class="resource-card skill-builder">
-            <div class="card-tag free">FREE</div>
-            <div class="r-icon">🏗️</div>
-            <h4>AWS Skill Builder</h4>
-            <p>Official AWS training platform with free courses, labs, and exam readiness content aligned to SAA-C03.</p>
-            <span class="link-arrow">Open Skill Builder →</span>
-        </a>
-        <a href="https://gemini.google.com/" target="_blank" class="resource-card gemini">
-            <div class="card-tag ai">AI TUTOR</div>
-            <div class="r-icon">✨</div>
-            <h4>Gemini Pro</h4>
-            <p>Your AI study buddy — explain concepts, compare services, generate quiz questions, and review architectures.</p>
-            <span class="link-arrow">Open Gemini →</span>
-        </a>
-        <a href="https://digitalcloud.training/aws-cheat-sheets/" target="_blank" class="resource-card cheatsheet">
-            <div class="card-tag free">FREE</div>
-            <div class="r-icon">📑</div>
-            <h4>DigitalCloud Cheat Sheets</h4>
-            <p>Comprehensive cheat sheets for every AWS service. Perfect for quick revision before the exam.</p>
-            <span class="link-arrow">Open Cheat Sheets →</span>
-        </a>
-        <a href="https://www.reddit.com/r/AWSCertifications/" target="_blank" class="resource-card community">
-            <div class="card-tag free">COMMUNITY</div>
-            <div class="r-icon">💬</div>
-            <h4>r/AWSCertifications</h4>
-            <p>Reddit community for tips, exam reports, motivation, and shared experiences from certified professionals.</p>
-            <span class="link-arrow">Join Community →</span>
-        </a>
-    </div>
-</div>
-
-<!-- TIPS -->
-<div class="container tips-section" id="tips">
-    <h2 class="section-title"><span class="icon">💡</span> Proven Exam Tips (from those who passed)</h2>
-    <div class="tips-grid">
-        <div class="tip-card">
-            <div class="tip-num">1</div>
-            <h4>Read the Exam Guide First</h4>
-            <p>Before watching a single video, <span class="highlight">read the official AWS Exam Guide</span> cover to cover. It's your blueprint — understand the 4 domains and their weights.</p>
-        </div>
-        <div class="tip-card">
-            <div class="tip-num">2</div>
-            <h4>Watch at 1.25x + Handwritten Notes</h4>
-            <p>Speed up the course but <span class="highlight">write notes by hand</span> — it forces deeper processing. Making your own slides also helps retention enormously.</p>
-        </div>
-        <div class="tip-card">
-            <div class="tip-num">3</div>
-            <h4>Practice Exams = Secret Sauce</h4>
-            <p>Aim for <span class="highlight">78-86% on practice exams</span> before the real test. The actual exam is often easier than quality practice tests.</p>
-        </div>
-        <div class="tip-card">
-            <div class="tip-num">4</div>
-            <h4>Use Gemini Pro as Your Tutor</h4>
-            <p>Ask Gemini to <span class="highlight">explain complex topics, generate quiz questions</span>, compare "SQS vs SNS vs Kinesis", and create scenario-based questions.</p>
-        </div>
-        <div class="tip-card">
-            <div class="tip-num">5</div>
-            <h4>Hands-On > Theory Alone</h4>
-            <p>A balanced approach is best. <span class="highlight">Complete labs for every major service</span> using AWS Academy, Free Tier, or Skill Builder sandbox.</p>
-        </div>
-        <div class="tip-card">
-            <div class="tip-num">6</div>
-            <h4>Look for Keywords in Questions</h4>
-            <p><span class="highlight">"Exactly once delivery"</span> → SQS FIFO. <span class="highlight">"Least operational overhead"</span> → managed/serverless. <span class="highlight">"Most cost-effective"</span> → spot/reserved.</p>
-        </div>
-        <div class="tip-card">
-            <div class="tip-num">7</div>
-            <h4>Eliminate Wrong Answers First</h4>
-            <p>Most wrong options are <span class="highlight">blatantly complex or don't make sense</span>. Narrow to 2, then use keywords to decide. Never leave blanks.</p>
-        </div>
-        <div class="tip-card">
-            <div class="tip-num">8</div>
-            <h4>Flag & Review Strategy</h4>
-            <p>First pass: answer known, <span class="highlight">flag uncertain ones</span>. Second pass: revisit with fresh eyes. Aim to finish with 8+ minutes spare.</p>
-        </div>
-        <div class="tip-card">
-            <div class="tip-num">9</div>
-            <h4>Focus on Security (30%)</h4>
-            <p>Domain 1 carries the highest weight. Master <span class="highlight">IAM, VPC security, KMS, encryption, and Organizations</span> — worth almost a third of the exam.</p>
-        </div>
-        <div class="tip-card">
-            <div class="tip-num">10</div>
-            <h4>Use Cheat Sheets for Final Review</h4>
-            <p>DigitalCloud and Cloudoku cheat sheets are perfect for <span class="highlight">quick revision the night before</span>. Supplement, don't replace, deep study.</p>
-        </div>
-    </div>
-</div>
-
-<!-- FAQ -->
-<div class="container faq-section" id="faq">
-    <h2 class="section-title"><span class="icon">❓</span> Frequently Asked Questions</h2>
-    <div id="faq-list"></div>
-</div>
-
-<div class="container tips-section" style="margin-top: 48px;">
-    <h2 class="section-title"><span class="icon">🚀</span> 11-Day Accelerated Study Approach</h2>
-    <div class="tip-card" style="background: var(--bg-card); border-color: var(--accent-red);">
-        <p style="margin-bottom: 12px;"><strong>Time is short!</strong> With the exam on June 29, you need to compress the 19-day plan into 11 days (about 1.7x speed). Here is the recommended approach:</p>
-        <ul style="list-style-position: inside; color: var(--text-secondary); font-size: 0.88rem; line-height: 1.8; margin-bottom: 16px;">
-            <li><span class="highlight">The 1.7x Schedule (Days 1-7):</span> Study 8-10 hours daily. Watch Stephane Maarek's course at 1.7x-2x speed. Focus heavily on Security (30%) and Resilient Architectures (26%).</li>
-            <li><span class="highlight">Strategic Hands-On Labs:</span> Only do labs for core compute and networking (VPC, EC2, IAM, ALB). Skip labs for simpler services.</li>
-            <li><span class="highlight">Practice Exams Early (Days 8-10):</span> Start mock exams with at least 3 days left. Do not just memorize answers—review explanations for wrong options.</li>
-            <li><span class="highlight">AI Tutor:</span> Use Gemini Pro to directly compare confusing services (e.g., SQS vs SNS) instead of re-watching long videos.</li>
-            <li><span class="highlight">Final Review (Day 11):</span> Learn no new material. Use cheat sheets for rapid-fire review and rest well!</li>
-        </ul>
-    </div>
-</div>
-
-<footer>
-    <div class="container">
-        <p>Built for your AWS SAA-C03 journey • Tekbay Apprenticeship Program • Exam: June 29, 2026</p>
-        <p style="margin-top: 6px; font-size: 0.72rem;">Based on proven strategies from r/AWSCertifications community</p>
-        <p style="margin-top: 6px; font-size: 0.72rem; color: var(--accent-cyan);">Last Updated: June 17, 2026</p>
-    </div>
-</footer>
+<footer>Data sourced from ESPN public API via <code>scraper.py</code> · Re-run the scraper to refresh</footer>
 
 <script>
-// ===== FAQ DATA =====
-const FAQ_DATA = [
-    { q: "How many total study hours do I need for the SAA-C03?", a: "The recommended range is <strong>80–120 hours</strong> for the Solutions Architect Associate. With 19 days averaging 4-6 hours daily, you'll accumulate roughly 76-114 hours. If you have prior AWS experience from the Tekbay program, you may need less. Use the hour tracker above to monitor your progress." },
-    { q: "How should I use Gemini Pro to study for the exam?", a: "Gemini Pro is your AI study buddy. Use it to: <strong>1)</strong> Explain complex concepts (\"Explain VPC peering vs Transit Gateway like I'm 5\"), <strong>2)</strong> Generate quiz questions (\"Give me 10 SAA-C03 style questions about S3\"), <strong>3)</strong> Compare services (\"Compare SQS vs SNS vs Kinesis in a table\"), <strong>4)</strong> Review architectures (\"Is this architecture well-designed?\"), <strong>5)</strong> Summarize long sections of your notes." },
-    { q: "Should I focus more on hands-on labs or theory?", a: "A <strong>balanced approach</strong> is best. Theory provides the conceptual foundation, while hands-on practice ensures you can apply what you've learned. The exam is scenario-based, so understanding how services work together in practice is crucial. Complete labs for every major service in AWS Academy." },
-    { q: "What score should I aim for on practice exams before taking the real test?", a: "Aim for <strong>78-86%</strong> consistently on practice exams. Multiple Reddit success stories confirm the actual exam is often easier than quality practice tests from TD/Maarek. If you're scoring 80%+ on practice exams, you're likely ready." },
-    { q: "What are the most common pitfalls during preparation?", a: "Avoid: <strong>1)</strong> Last-minute cramming — set a regular schedule, <strong>2)</strong> Memorizing answers without understanding concepts, <strong>3)</strong> Skipping hands-on labs, <strong>4)</strong> Ignoring the exam blueprint/guide, <strong>5)</strong> Using outdated resources (check the SAA-C03 version)." },
-    { q: "How long does it take to get exam results?", a: "Results typically come within <strong>1-5 business days</strong>. Some people report getting results the same day — one Reddit user finished at 11:30 AM and received results at 8:20 PM. You'll see a \"Pass/Fail\" immediately on screen, with the detailed score following later." },
-    { q: "What value does the SAA certification add to my career?", a: "The AWS SAA is one of the most in-demand cloud certifications globally. It boosts your credibility, enhances job prospects (many companies require it), and often leads to <strong>better earning potential</strong>. Through the Tekbay Apprenticeship, it also validates your skills to employers." },
-    { q: "Where can I find cheat sheets for quick revision?", a: "Use <strong>DigitalCloud</strong> (digitalcloud.training/aws-cheat-sheets) for comprehensive service-by-service cheat sheets, and <strong>Cloudoku</strong> (cloudoku.training) for study tips and frameworks. GitHub also has community-maintained cheat sheet repositories." }
-];
+  const GSW = 'GSW';
+  let allGames = [];
+  let currentFilter = 'all';
 
-// ===== STUDY PLAN DATA =====
-const STUDY_DAYS = [
-    {
-        day: 1, date: '2026-06-12', phase: 'course',
-        title: 'Exam Blueprint + Cloud Foundations + IAM',
-        timeEst: '4-5 hrs',
-        tags: ['course', 'gemini'],
-        sections: [
-            {
-                label: '📋 Step 0: Exam Blueprint (CRITICAL — Do Not Skip)',
-                tasks: [
-                    '<strong>Read the official AWS SAA-C03 Exam Guide</strong> — understand all 4 domains, their weights (30/26/24/20%), and task statements',
-                    'Review the <strong>sample questions</strong> from AWS to understand question format and difficulty',
-                    'Visit <a href="https://aws.amazon.com/certification/certified-solutions-architect-associate/" target="_blank" style="color: var(--accent-cyan)">AWS Certification Page</a> — bookmark it as your reference',
-                    '<span class="gemini-tag">GEMINI PRO</span> Ask: "Summarize the AWS SAA-C03 exam guide domains and key topics for each"'
-                ]
-            },
-            {
-                label: '📘 Stephane Maarek Course (Sections 1-5)',
-                tasks: [
-                    '<strong>Sections 1-2:</strong> Course Introduction & Exam Overview — SAA-C03 format, 65 questions, 130 mins',
-                    '<strong>Section 3:</strong> Getting Started with AWS — regions, AZs, global infrastructure',
-                    '<strong>Section 4:</strong> <span class="service-tag">IAM</span> — Users, Groups, Policies, Roles, MFA, Access Keys, CLI, SDK',
-                    '<strong>Section 5:</strong> <span class="service-tag">IAM</span> Advanced — Organizations, SCP, IAM Conditions, Resource-Based Policies',
-                    'Complete all section quizzes and note IAM policy JSON structure'
-                ]
-            },
-            {
-                label: '🧪 Hands-On',
-                tasks: [
-                    'Create IAM users, groups, and custom policies in AWS Academy',
-                    'Set up MFA and test role switching between accounts'
-                ]
-            },
-            {
-                label: '📝 Notes & AI Review',
-                tasks: [
-                    '<strong>Handwritten notes:</strong> IAM best practices and policy evaluation logic',
-                    '<span class="gemini-tag">GEMINI PRO</span> Ask: "Explain the difference between identity-based and resource-based policies with examples"',
-                    '<strong>Cheat Sheet:</strong> Review <a href="https://digitalcloud.training/aws-cheat-sheets/" target="_blank" style="color: var(--accent-cyan)">DigitalCloud IAM cheat sheet</a>'
-                ]
-            }
-        ]
-    },
-    {
-        day: 2, date: '2026-06-13', phase: 'course',
-        title: 'EC2 Fundamentals & Instance Types',
-        timeEst: '3-4 hrs',
-        tags: ['course', 'lab'],
-        sections: [
-            {
-                label: '📘 Stephane Maarek Course (Section 6)',
-                tasks: [
-                    '<strong>Section 6:</strong> <span class="service-tag">EC2</span> Basics — Instance types (T, M, C, R, G, P, I, D), AMIs, User Data',
-                    '<strong>Section 6 cont.:</strong> <span class="service-tag">Security Groups</span> — inbound/outbound rules, stateful nature',
-                    '<strong>Section 6 cont.:</strong> EC2 purchasing options — On-Demand, Reserved, Savings Plans, Spot, Dedicated Hosts, Capacity Reservations',
-                    'Complete EC2 Basics quiz'
-                ]
-            },
-            {
-                label: '🧪 Hands-On + AWS Free Tier',
-                tasks: [
-                    'Launch EC2 instances with different instance types in AWS Academy',
-                    'Configure security groups — test inbound/outbound rules',
-                    'Create and use a custom AMI',
-                    'Explore <a href="https://aws.amazon.com/free/" target="_blank" style="color: var(--accent-cyan)">AWS Free Tier</a> — 750 hrs/month t2.micro'
-                ]
-            },
-            {
-                label: '📝 Notes & AI Review',
-                tasks: [
-                    'Create a comparison chart of EC2 purchasing options with use cases',
-                    'Memorize instance families: General (T/M), Compute (C), Memory (R/X), Storage (I/D/H)',
-                    '<span class="gemini-tag">GEMINI PRO</span> Ask: "Create a table comparing all EC2 purchasing options with use cases and cost savings"'
-                ]
-            }
-        ]
-    },
-    {
-        day: 3, date: '2026-06-14', phase: 'course',
-        title: 'EC2 Storage: EBS, EFS & Instance Store',
-        timeEst: '3-4 hrs',
-        tags: ['course'],
-        sections: [
-            {
-                label: '📘 Stephane Maarek Course (Sections 7-8)',
-                tasks: [
-                    '<strong>Section 7:</strong> <span class="service-tag">EC2 SAA Level</span> — Elastic IPs, Placement Groups (cluster, spread, partition)',
-                    '<strong>Section 7 cont.:</strong> <span class="service-tag">ENI</span> (Elastic Network Interfaces)',
-                    '<strong>Section 8:</strong> <span class="service-tag">EBS</span> — Volume types (gp2/gp3, io1/io2, st1, sc1), snapshots, encryption',
-                    '<strong>Section 8 cont.:</strong> <span class="service-tag">EFS</span> — vs EBS, performance modes, storage classes, lifecycle policies',
-                    '<strong>Section 8 cont.:</strong> <span class="service-tag">Instance Store</span> — ephemeral storage, use cases'
-                ]
-            },
-            {
-                label: '🧪 Hands-On',
-                tasks: [
-                    'Create and attach EBS volumes, test snapshots in AWS Academy',
-                    'Set up EFS and mount it on multiple EC2 instances'
-                ]
-            },
-            {
-                label: '📝 Notes & AI Review',
-                tasks: [
-                    '<span class="gemini-tag">GEMINI PRO</span> Ask: "Create a comparison table: EBS vs EFS vs Instance Store vs FSx — differences, use cases, pricing"',
-                    'Know EBS volume types and their IOPS/throughput limits cold'
-                ]
-            }
-        ]
-    },
-    {
-        day: 4, date: '2026-06-15', phase: 'course',
-        title: 'ELB, ASG & High Availability',
-        timeEst: '3-4 hrs',
-        tags: ['course', 'lab'],
-        sections: [
-            {
-                label: '📘 Stephane Maarek Course (Sections 9-10)',
-                tasks: [
-                    '<strong>Section 9:</strong> <span class="service-tag">ELB</span> — ALB vs NLB vs GLB vs CLB, target groups, health checks',
-                    '<strong>Section 9 cont.:</strong> ALB — path-based routing, host-based routing, fixed response, redirects',
-                    '<strong>Section 9 cont.:</strong> NLB — TCP/UDP, static IP, high performance use cases',
-                    '<strong>Section 9 cont.:</strong> <span class="service-tag">SSL/TLS</span> — SSL certificates, SNI, connection draining',
-                    '<strong>Section 10:</strong> <span class="service-tag">ASG</span> — Launch templates, scaling policies (target tracking, step, simple, scheduled, predictive)'
-                ]
-            },
-            {
-                label: '🧪 Hands-On',
-                tasks: [
-                    'Create an ALB with path-based routing in AWS Academy',
-                    'Set up ASG with target tracking scaling policy',
-                    'AWS Academy: Load Balancing guided lab'
-                ]
-            },
-            {
-                label: '📝 Notes & AI Review',
-                tasks: [
-                    '<strong>CRITICAL:</strong> ALB vs NLB vs GLB — heavily tested!',
-                    '<span class="gemini-tag">GEMINI PRO</span> Ask: "When should I use ALB vs NLB vs Gateway LB? Give me 5 exam-style scenario questions"',
-                    'Understand cross-zone load balancing and sticky sessions'
-                ]
-            }
-        ]
-    },
-    {
-        day: 5, date: '2026-06-16', phase: 'course',
-        title: 'RDS, Aurora & ElastiCache',
-        timeEst: '3-4 hrs',
-        tags: ['course'],
-        sections: [
-            {
-                label: '📘 Stephane Maarek Course (Section 11)',
-                tasks: [
-                    '<strong>Section 11:</strong> <span class="service-tag">RDS</span> — Multi-AZ, Read Replicas, encryption, IAM auth, proxy',
-                    '<strong>Section 11 cont.:</strong> <span class="service-tag">Aurora</span> — architecture, endpoints, replicas, Global Database, Serverless, Multi-Master',
-                    '<strong>Section 11 cont.:</strong> <span class="service-tag">ElastiCache</span> — Redis vs Memcached, caching strategies (lazy loading, write-through)'
-                ]
-            },
-            {
-                label: '🧪 Hands-On',
-                tasks: [
-                    'Create RDS with Multi-AZ and a Read Replica in AWS Academy',
-                    'Explore Aurora cluster endpoints and failover behavior'
-                ]
-            },
-            {
-                label: '📝 Notes & AI Review',
-                tasks: [
-                    'Key: Multi-AZ (availability) vs Read Replicas (scalability)',
-                    'Aurora storage: auto-scaling, 6 copies across 3 AZs',
-                    '<span class="gemini-tag">GEMINI PRO</span> Ask: "Compare RDS Multi-AZ vs Read Replicas vs Aurora — when to use each?"'
-                ]
-            }
-        ]
-    },
-    {
-        day: 6, date: '2026-06-17', phase: 'course',
-        title: 'Route 53 & DNS',
-        timeEst: '3-4 hrs',
-        tags: ['course'],
-        sections: [
-            {
-                label: '📘 Stephane Maarek Course (Section 12)',
-                tasks: [
-                    '<strong>Section 12:</strong> <span class="service-tag">Route 53</span> — DNS fundamentals, hosted zones, record types (A, AAAA, CNAME, Alias)',
-                    '<strong>Section 12 cont.:</strong> Routing policies — Simple, Weighted, Latency, Failover, Geolocation, Geoproximity, Multi-Value, IP-based',
-                    '<strong>Section 12 cont.:</strong> Health Checks — types, calculated health checks, private hosted zones',
-                    '<strong>Section 12 cont.:</strong> Domain registrar vs DNS service, 3rd party domain setup'
-                ]
-            },
-            {
-                label: '📝 Notes & AI Review',
-                tasks: [
-                    '<strong>CRITICAL:</strong> Alias vs CNAME — Alias for Zone Apex!',
-                    '<span class="gemini-tag">GEMINI PRO</span> Ask: "Create a flowchart: which Route 53 routing policy for which use case? Give me scenarios"',
-                    'Review <a href="https://digitalcloud.training/aws-cheat-sheets/" target="_blank" style="color: var(--accent-cyan)">DigitalCloud Route 53 cheat sheet</a>'
-                ]
-            }
-        ]
-    },
-    {
-        day: 7, date: '2026-06-18', phase: 'course',
-        title: 'S3 Complete Deep Dive',
-        timeEst: '4-5 hrs',
-        tags: ['course', 'cheatsheet'],
-        sections: [
-            {
-                label: '📘 Stephane Maarek Course (Section 13)',
-                tasks: [
-                    '<strong>Section 13:</strong> <span class="service-tag">S3</span> — Buckets, objects, versioning, encryption (SSE-S3, SSE-KMS, SSE-C, client-side)',
-                    '<strong>Section 13 cont.:</strong> S3 Security — bucket policies, ACLs, access points, Object Lambda, VPC Endpoints',
-                    '<strong>Section 13 cont.:</strong> S3 Websites, CORS, MFA Delete, S3 Access Logs',
-                    '<strong>Section 13 cont.:</strong> S3 Replication (CRR, SRR), pre-signed URLs',
-                    '<strong>Section 13 cont.:</strong> <span class="service-tag">S3 Storage Classes</span> — Standard, IA, One Zone-IA, Glacier (Instant, Flexible, Deep Archive), Intelligent-Tiering',
-                    '<strong>Section 13 cont.:</strong> Lifecycle Rules, Event Notifications, Performance (multi-part upload, transfer acceleration)',
-                    '<strong>Section 13 cont.:</strong> S3 Select, Object Lock & Vault Lock'
-                ]
-            },
-            {
-                label: '📝 Notes & AI Review',
-                tasks: [
-                    '<strong>S3 is HUGE on the exam</strong> — master storage classes and lifecycle transitions',
-                    'Create a storage class chart with pricing tiers and retrieval times',
-                    '<span class="gemini-tag">GEMINI PRO</span> Ask: "Create a comprehensive S3 storage class comparison table with retrieval times, costs, and use cases"',
-                    '<strong>Cheat Sheet:</strong> Review DigitalCloud S3 cheat sheet — this maps to Domain 1 (Security, 30%)'
-                ]
-            }
-        ]
-    },
-    {
-        day: 8, date: '2026-06-19', phase: 'course',
-        title: 'CloudFront, Global Accelerator & Storage Extras',
-        timeEst: '3-4 hrs',
-        tags: ['course'],
-        sections: [
-            {
-                label: '📘 Stephane Maarek Course (Sections 14-15)',
-                tasks: [
-                    '<strong>Section 14:</strong> <span class="service-tag">CloudFront</span> — Origins (S3, ALB, EC2, custom), OAC, caching behaviors',
-                    '<strong>Section 14 cont.:</strong> CloudFront signed URLs/cookies, geo restrictions, price classes',
-                    '<strong>Section 14 cont.:</strong> <span class="service-tag">Global Accelerator</span> — anycast IP, vs CloudFront',
-                    '<strong>Section 15:</strong> <span class="service-tag">Snow Family</span> (Snowcone, Snowball, Snowmobile), <span class="service-tag">FSx</span> (Windows, Lustre)',
-                    '<strong>Section 15 cont.:</strong> Storage Gateway (S3 File, FSx File, Volume, Tape), Transfer Family, DataSync'
-                ]
-            },
-            {
-                label: '📝 Notes & AI Review',
-                tasks: [
-                    'CloudFront vs Global Accelerator — know the use case differences',
-                    'Storage Gateway types: which for which migration/hybrid scenario',
-                    '<span class="gemini-tag">GEMINI PRO</span> Ask: "Compare all AWS storage migration services: Snow Family, Storage Gateway, DataSync, Transfer Family — when to use each?"'
-                ]
-            }
-        ]
-    },
-    {
-        day: 9, date: '2026-06-20', phase: 'course',
-        title: 'Decoupling: SQS, SNS, Kinesis',
-        timeEst: '3-4 hrs',
-        tags: ['course', 'gemini'],
-        sections: [
-            {
-                label: '📘 Stephane Maarek Course (Section 16)',
-                tasks: [
-                    '<strong>Section 16:</strong> <span class="service-tag">SQS</span> — Standard vs FIFO, visibility timeout, DLQ, delay queues, long polling',
-                    '<strong>Section 16 cont.:</strong> <span class="service-tag">SNS</span> — pub/sub, fan-out pattern (SNS + SQS), FIFO topics, message filtering',
-                    '<strong>Section 16 cont.:</strong> <span class="service-tag">Kinesis</span> — Data Streams, Data Firehose, Data Analytics',
-                    '<strong>Section 16 cont.:</strong> <span class="service-tag">Amazon MQ</span> — ActiveMQ/RabbitMQ for on-prem migration'
-                ]
-            },
-            {
-                label: '📝 Notes & AI Review',
-                tasks: [
-                    '<strong>CRITICAL:</strong> SQS FIFO = "exactly once" + "ordered" processing',
-                    'SNS + SQS Fan-out pattern — draw the architecture',
-                    '<span class="gemini-tag">GEMINI PRO</span> Ask: "Compare SQS vs SNS vs Kinesis vs EventBridge in a detailed table. When would I use each? Give me 5 exam scenarios"'
-                ]
-            }
-        ]
-    },
-    {
-        day: 10, date: '2026-06-21', phase: 'course',
-        title: 'Containers & Serverless Foundations',
-        timeEst: '3-4 hrs',
-        tags: ['course'],
-        sections: [
-            {
-                label: '📘 Stephane Maarek Course (Sections 17-18)',
-                tasks: [
-                    '<strong>Section 17:</strong> <span class="service-tag">ECS</span> — EC2 launch type vs Fargate, task definitions, service, ALB integration',
-                    '<strong>Section 17 cont.:</strong> <span class="service-tag">ECR</span>, <span class="service-tag">EKS</span>, <span class="service-tag">App Runner</span>',
-                    '<strong>Section 18:</strong> <span class="service-tag">Lambda</span> — triggers, limits, concurrency, versions & aliases, Lambda@Edge, VPC',
-                    '<strong>Section 18 cont.:</strong> <span class="service-tag">DynamoDB</span> — primary keys, RCU/WCU, indexes (GSI/LSI), streams, DAX, global tables',
-                    '<strong>Section 18 cont.:</strong> <span class="service-tag">API Gateway</span> — REST vs HTTP vs WebSocket, stages, caching, throttling'
-                ]
-            },
-            {
-                label: '📝 Notes & AI Review',
-                tasks: [
-                    'ECS EC2 vs Fargate: Fargate = serverless, no infra management',
-                    'Lambda limits: 15 min timeout, 10GB memory, 1000 concurrent',
-                    '<span class="gemini-tag">GEMINI PRO</span> Ask: "Generate 10 SAA-C03 practice questions about Lambda, DynamoDB, and API Gateway"'
-                ]
-            }
-        ]
-    },
-    {
-        day: 11, date: '2026-06-22', phase: 'course',
-        title: 'Serverless Extras & Database Comparison',
-        timeEst: '3-4 hrs',
-        tags: ['course', 'cheatsheet'],
-        sections: [
-            {
-                label: '📘 Stephane Maarek Course (Sections 18-20)',
-                tasks: [
-                    '<strong>Section 18 cont.:</strong> <span class="service-tag">Step Functions</span>, <span class="service-tag">Cognito</span> (User Pools vs Identity Pools)',
-                    '<strong>Section 19:</strong> <span class="service-tag">Databases Summary</span> — choosing the right DB for each scenario',
-                    '<strong>Section 19 cont.:</strong> DocumentDB, Neptune, Keyspaces, QLDB, Timestream',
-                    '<strong>Section 20:</strong> <span class="service-tag">Data & Analytics</span> — Athena, Redshift, OpenSearch, EMR, QuickSight',
-                    '<strong>Section 20 cont.:</strong> <span class="service-tag">Glue</span> (ETL, Data Catalog), Lake Formation, Kinesis Data Analytics'
-                ]
-            },
-            {
-                label: '📝 Notes & AI Review',
-                tasks: [
-                    '<strong>CRITICAL:</strong> Create a database decision tree — which DB for which scenario?',
-                    'Cognito User Pools (authentication) vs Identity Pools (authorization)',
-                    '<span class="gemini-tag">GEMINI PRO</span> Ask: "Create a comprehensive AWS database decision tree: given a use case, which database should I choose? Include all 10+ database services"',
-                    '<strong>Cheat Sheet:</strong> Review DigitalCloud databases cheat sheet'
-                ]
-            }
-        ]
-    },
-    {
-        day: 12, date: '2026-06-23', phase: 'course',
-        title: 'Monitoring, Audit & ML Overview',
-        timeEst: '3-4 hrs',
-        tags: ['course'],
-        sections: [
-            {
-                label: '📘 Stephane Maarek Course (Sections 21-22)',
-                tasks: [
-                    '<strong>Section 21:</strong> <span class="service-tag">CloudWatch</span> — Metrics, Logs, Alarms, Events/EventBridge, Insights',
-                    '<strong>Section 21 cont.:</strong> <span class="service-tag">CloudTrail</span> — management events, data events, insights',
-                    '<strong>Section 21 cont.:</strong> <span class="service-tag">AWS Config</span> — rules, remediation, aggregation',
-                    '<strong>Section 22:</strong> <span class="service-tag">ML Overview</span> — Rekognition, Transcribe, Polly, Translate, Lex, SageMaker, Kendra, Personalize, Textract'
-                ]
-            },
-            {
-                label: '📝 Notes & AI Review',
-                tasks: [
-                    'CloudWatch vs CloudTrail vs Config: monitoring vs API audit vs compliance',
-                    'EventBridge: rules → targets pattern, cron scheduling',
-                    '<span class="gemini-tag">GEMINI PRO</span> Ask: "Compare CloudWatch vs CloudTrail vs AWS Config — purpose, what they monitor, and exam-relevant differences"',
-                    'ML services: just know the use case for each (1-2 questions on exam)'
-                ]
-            }
-        ]
-    },
-    {
-        day: 13, date: '2026-06-24', phase: 'course',
-        title: 'Security & Encryption (30% of Exam!)',
-        timeEst: '4-5 hrs',
-        tags: ['course', 'cheatsheet', 'gemini'],
-        sections: [
-            {
-                label: '📘 Stephane Maarek Course (Section 23)',
-                tasks: [
-                    '<strong>Section 23:</strong> <span class="service-tag">KMS</span> — symmetric vs asymmetric, key rotation, key policies, grants',
-                    '<strong>Section 23 cont.:</strong> <span class="service-tag">SSM Parameter Store</span> vs <span class="service-tag">Secrets Manager</span> — rotation, cross-account',
-                    '<strong>Section 23 cont.:</strong> <span class="service-tag">ACM</span>, <span class="service-tag">WAF</span>, <span class="service-tag">Shield</span> (Standard vs Advanced)',
-                    '<strong>Section 23 cont.:</strong> <span class="service-tag">GuardDuty</span>, <span class="service-tag">Inspector</span>, <span class="service-tag">Macie</span>, <span class="service-tag">Security Hub</span>, <span class="service-tag">Detective</span>',
-                    '<strong>Section 23 cont.:</strong> <span class="service-tag">Firewall Manager</span>, <span class="service-tag">IAM Access Analyzer</span>'
-                ]
-            },
-            {
-                label: '📝 Notes & AI Review — THIS IS 30% OF THE EXAM',
-                tasks: [
-                    'SSM Parameter Store (free tier) vs Secrets Manager (auto rotation, RDS)',
-                    'WAF: protect ALB, CloudFront, API Gateway from web exploits',
-                    'Shield Standard (free, L3/L4) vs Shield Advanced (paid, L7, DDoS team)',
-                    '<span class="gemini-tag">GEMINI PRO</span> Ask: "Create a comprehensive comparison of ALL AWS security services: KMS, WAF, Shield, GuardDuty, Inspector, Macie, Security Hub, Detective, Firewall Manager — what each does and when to use it"',
-                    '<strong>Cheat Sheet:</strong> Review DigitalCloud Security & KMS cheat sheets thoroughly'
-                ]
-            }
-        ]
-    },
-    {
-        day: 14, date: '2026-06-25', phase: 'course',
-        title: 'VPC Networking Deep Dive',
-        timeEst: '4-5 hrs',
-        tags: ['course', 'lab'],
-        sections: [
-            {
-                label: '📘 Stephane Maarek Course (Section 24)',
-                tasks: [
-                    '<strong>Section 24:</strong> <span class="service-tag">VPC</span> — CIDR, subnets, Internet Gateway, NAT Gateway/Instance',
-                    '<strong>Section 24 cont.:</strong> <span class="service-tag">NACL</span> vs <span class="service-tag">Security Groups</span> — stateless vs stateful',
-                    '<strong>Section 24 cont.:</strong> <span class="service-tag">VPC Peering</span>, <span class="service-tag">VPC Endpoints</span> (Interface vs Gateway), <span class="service-tag">PrivateLink</span>',
-                    '<strong>Section 24 cont.:</strong> <span class="service-tag">Site-to-Site VPN</span>, <span class="service-tag">Direct Connect</span>, <span class="service-tag">Transit Gateway</span>',
-                    '<strong>Section 24 cont.:</strong> VPC Flow Logs, Traffic Mirroring, IPv6'
-                ]
-            },
-            {
-                label: '🧪 AWS Academy Lab',
-                tasks: [
-                    'AWS Academy: VPC lab — create VPC with public/private subnets, IGW, NAT',
-                    'Practice VPC endpoints for S3 and DynamoDB'
-                ]
-            },
-            {
-                label: '📝 Notes & AI Review',
-                tasks: [
-                    'VPC Endpoints: Gateway (S3, DynamoDB — free) vs Interface (most services — paid)',
-                    'Direct Connect: dedicated, 1-10 Gbps, weeks to set up',
-                    '<span class="gemini-tag">GEMINI PRO</span> Ask: "Draw me a text-based VPC architecture diagram with public/private subnets, NAT, IGW, and explain the traffic flow"',
-                    '<strong>Cheat Sheet:</strong> Review DigitalCloud VPC cheat sheet'
-                ]
-            }
-        ]
-    },
-    {
-        day: 15, date: '2026-06-26', phase: 'course',
-        title: 'DR, Migrations, Well-Architected & Final Course Review',
-        timeEst: '4-5 hrs',
-        tags: ['course', 'review', 'cheatsheet'],
-        sections: [
-            {
-                label: '📘 Stephane Maarek Course (Sections 25-28)',
-                tasks: [
-                    '<strong>Section 25:</strong> <span class="service-tag">DR</span> — RPO/RTO, Backup & Restore, Pilot Light, Warm Standby, Multi-Site',
-                    '<strong>Section 25 cont.:</strong> <span class="service-tag">DMS</span>, <span class="service-tag">MGN</span>, <span class="service-tag">DRS</span>',
-                    '<strong>Section 26:</strong> More Solutions Architecture — Event Processing, Caching, HA patterns',
-                    '<strong>Section 27:</strong> Other Services — CloudFormation, SES, SSM, Cost Explorer, Budgets, Trusted Advisor',
-                    '<strong>Section 28:</strong> <span class="service-tag">Well-Architected Framework</span> — 6 Pillars (Operational Excellence, Security, Reliability, Performance, Cost, Sustainability)'
-                ]
-            },
-            {
-                label: '📑 Cheat Sheet & Review Day',
-                tasks: [
-                    'DR strategies by cost: Backup/Restore → Pilot Light → Warm Standby → Multi-Site',
-                    'Memorize the 6 Well-Architected pillars and key focus areas',
-                    '<span class="gemini-tag">GEMINI PRO</span> Ask: "Quiz me on all 6 Well-Architected Framework pillars — give me a scenario for each"',
-                    '<strong>Review ALL cheat sheets:</strong> DigitalCloud + Cloudoku — focus on your weakest areas',
-                    'Browse <a href="https://cloudoku.training/study-tips" target="_blank" style="color: var(--accent-cyan)">Cloudoku Study Tips</a> for final preparation framework'
-                ]
-            }
-        ]
-    },
-    {
-        day: 16, date: '2026-06-27', phase: 'lab',
-        title: 'AWS Academy Labs + First Mock Exam',
-        timeEst: '5-6 hrs',
-        tags: ['lab', 'exam'],
-        sections: [
-            {
-                label: '🧪 AWS Academy Labs (Morning — 3 hrs)',
-                tasks: [
-                    'Complete all remaining <strong>Challenge Labs</strong> in AWS Academy',
-                    'Complete key <strong>Guided Labs</strong>: VPC, EC2, S3, RDS, Lambda, ELB/ASG',
-                    'Focus labs on your weakest areas from course study',
-                    'Login: <a href="https://awsacademy.instructure.com/courses/167408" target="_blank" style="color: var(--accent-cyan)">AWS Academy Portal</a>',
-                    'Also explore <a href="https://explore.skillbuilder.aws/" target="_blank" style="color: var(--accent-cyan)">AWS Skill Builder</a> free labs'
-                ]
-            },
-            {
-                label: '📝 First Mock Exam (Afternoon — 3 hrs)',
-                tasks: [
-                    'Take <strong>Google Forms mock exam</strong> from Tekbay — <strong>timed mode (130 min)</strong>',
-                    'Score yourself and identify weak domains',
-                    'Review every wrong answer — write down the correct explanation',
-                    '<span class="gemini-tag">GEMINI PRO</span> For each wrong answer, ask: "Explain why [correct answer] is right and why [my answer] is wrong for this AWS scenario"',
-                    'Create a "weak topics" list for focused review'
-                ]
-            }
-        ]
-    },
-    {
-        day: 17, date: '2026-06-28', phase: 'exam',
-        title: 'Exam Simulation Day 1 — ExamTopics Blitz',
-        timeEst: '5-6 hrs',
-        tags: ['exam', 'gemini'],
-        sections: [
-            {
-                label: '📝 Morning: ExamTopics Practice (3 hrs)',
-                tasks: [
-                    'Go to <a href="https://www.examtopics.com/exams/amazon/" target="_blank" style="color: var(--accent-cyan)">ExamTopics — Amazon SAA-C03</a>',
-                    'Do 65 questions in <strong>timed mode</strong> — simulate real exam conditions',
-                    'No phone, no notes, no breaks longer than 5 min',
-                    'Score target: <strong>≥75%</strong> (if lower, focus on weak areas)'
-                ]
-            },
-            {
-                label: '📝 Afternoon: Review & AI-Powered Study (2-3 hrs)',
-                tasks: [
-                    'Review ALL incorrect answers — read community discussions on ExamTopics',
-                    'Cross-reference weak topics with Stephane Maarek sections',
-                    '<span class="gemini-tag">GEMINI PRO</span> For each weak topic: "Explain [topic] in detail and give me 5 exam-style questions about it"',
-                    'Re-watch specific sections at 1.5x speed for topics you got wrong',
-                    'Take another 30-question set focusing on weak domains'
-                ]
-            },
-            {
-                label: '🌙 Evening: Cheat Sheet Review (1 hr)',
-                tasks: [
-                    'Review <a href="https://digitalcloud.training/aws-cheat-sheets/" target="_blank" style="color: var(--accent-cyan)">DigitalCloud cheat sheets</a> for: IAM, S3, VPC, Security',
-                    'Quick flashcard review of key service comparisons',
-                    'Read Well-Architected Framework summary one more time'
-                ]
-            }
-        ]
-    },
-    {
-        day: 18, date: '2026-06-29', phase: 'exam',
-        title: 'Exam Simulation Day 2 — ExamPrepper + Final Review',
-        timeEst: '5-6 hrs',
-        tags: ['exam', 'cheatsheet'],
-        sections: [
-            {
-                label: '📝 Morning: ExamPrepper Full Exam (3 hrs)',
-                tasks: [
-                    'Go to <a href="https://www.examprepper.co/" target="_blank" style="color: var(--accent-cyan)">ExamPrepper</a> — take full SAA-C03 practice exam',
-                    '<strong>Timed mode, 65 questions, 130 minutes</strong> — treat it like the real thing',
-                    'Flag uncertain questions and revisit after first pass',
-                    'Score target: <strong>≥80%</strong> — you should be improving!'
-                ]
-            },
-            {
-                label: '📝 Afternoon: Final Mock + Service Review (2 hrs)',
-                tasks: [
-                    'Take any remaining <strong>Google Forms mock exams</strong> from Tekbay',
-                    'Focus on domain-specific question sets for your weakest domain',
-                    '<span class="gemini-tag">GEMINI PRO</span> Ask: "Give me a rapid-fire quiz — 20 questions covering SQS vs SNS, ALB vs NLB, RDS vs Aurora vs DynamoDB, S3 storage classes"',
-                    'Review the "vs" comparisons one final time'
-                ]
-            },
-            {
-                label: '🌙 Evening: Pre-Exam Prep (1 hr)',
-                tasks: [
-                    '<strong>Light review only — DO NOT CRAM!</strong> Review handwritten notes one last time',
-                    'Quick scan of all <a href="https://digitalcloud.training/aws-cheat-sheets/" target="_blank" style="color: var(--accent-cyan)">DigitalCloud</a> + <a href="https://cloudoku.training/" target="_blank" style="color: var(--accent-cyan)">Cloudoku</a> cheat sheets',
-                    'Review your "weak topics" list and key takeaways',
-                    'Prepare exam logistics: ID, test center location/online proctoring setup',
-                    'Get a good night\'s sleep — <strong>at least 7-8 hours!</strong> 😴'
-                ]
-            }
-        ]
-    },
-    {
-        day: 19, date: '2026-06-30', phase: 'exam',
-        title: '🏆 EXAM DAY — AWS SAA-C03',
-        timeEst: '~3 hrs',
-        tags: ['exam'],
-        sections: [
-            {
-                label: '🌅 Before the Exam',
-                tasks: [
-                    'Eat a <strong>good breakfast</strong> — protein and complex carbs for sustained energy',
-                    'Arrive at test center <strong>30 minutes early</strong> (or log in early for online)',
-                    'Bring <strong>valid photo ID</strong> (two forms may be required)',
-                    'Quick mental review: 6 Well-Architected pillars, key service acronyms',
-                    'Stay calm — you\'ve put in 80+ hours of preparation!'
-                ]
-            },
-            {
-                label: '📝 During the Exam (130 minutes)',
-                tasks: [
-                    '<strong>First pass:</strong> Answer confident questions, flag uncertain ones (expect ~15-22 flags)',
-                    '<strong>Read carefully:</strong> Look for keywords — "most cost-effective", "least operational overhead", "exactly once"',
-                    '<strong>Eliminate first:</strong> Remove obviously wrong answers, then choose between remaining 2',
-                    '<strong>Second pass:</strong> Revisit flagged questions with fresh perspective',
-                    '<strong>Time check:</strong> Aim to finish first pass by minute 90, leaving 40 min for review',
-                    'Never leave a question blank — there\'s <strong>no penalty for guessing</strong>!'
-                ]
-            },
-            {
-                label: '🎉 After the Exam',
-                tasks: [
-                    'Results typically come within <strong>1-5 business days</strong> (sometimes same day!)',
-                    'You\'ll see Pass/Fail on screen immediately — detailed score comes later by email',
-                    'Score of 720+ out of 1000 = <strong>PASS</strong> 🎊',
-                    'Celebrate your achievement — share with the Tekbay cohort!',
-                    'Consider next cert: AWS Developer Associate or SysOps Administrator'
-                ]
-            }
-        ]
+  function fmt(dateStr) {
+    const d = new Date(dateStr);
+    return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+  }
+
+  function getResult(g) {
+    const gsw_score  = g.home_abbr === GSW ? +g.home_score : +g.away_score;
+    const opp_score  = g.home_abbr === GSW ? +g.away_score : +g.home_score;
+    return gsw_score > opp_score ? 'W' : 'L';
+  }
+
+  function getOpp(g) {
+    return g.home_abbr === GSW
+      ? { abbr: g.away_abbr, name: g.away_team }
+      : { abbr: g.home_abbr, name: g.home_team };
+  }
+
+  function isHome(g) { return g.home_abbr === GSW; }
+
+  function getScore(g) {
+    return g.home_abbr === GSW
+      ? { gsw: g.home_score, opp: g.away_score }
+      : { gsw: g.away_score, opp: g.home_score };
+  }
+
+  function calcStreak(games) {
+    if (!games.length) return '—';
+    const res = games.map(getResult);
+    const first = res[0];
+    let count = 0;
+    for (const r of res) { if (r === first) count++; else break; }
+    return first + count;
+  }
+
+  function renderLatest(g) {
+    const res   = getResult(g);
+    const sc    = getScore(g);
+    const opp   = getOpp(g);
+    const home  = isHome(g);
+    const el    = document.getElementById('latest-card');
+
+    const awaySide = home
+      ? `<div class="team-side away"><div class="team-abbr">${opp.abbr}</div><div class="team-name">${opp.name}</div><div class="team-location">Away</div></div>`
+      : `<div class="team-side away gsw-highlight"><div class="team-abbr">GSW</div><div class="team-name">Golden State Warriors</div><div class="team-location">Away</div></div>`;
+
+    const homeSide = home
+      ? `<div class="team-side home gsw-highlight"><div class="team-abbr">GSW</div><div class="team-name">Golden State Warriors</div><div class="team-location">Home</div></div>`
+      : `<div class="team-side home"><div class="team-abbr">${opp.abbr}</div><div class="team-name">${opp.name}</div><div class="team-location">Home</div></div>`;
+
+    const awayScore = home ? sc.opp : sc.gsw;
+    const homeScore = home ? sc.gsw : sc.opp;
+
+    el.innerHTML = `
+      ${awaySide}
+      <div class="score-center">
+        <div class="score-digits">
+          <span>${awayScore}</span><span class="score-sep">–</span><span>${homeScore}</span>
+        </div>
+        <div class="result-pill ${res === 'W' ? 'win' : 'loss'}">${res === 'W' ? '✓ WIN' : '✗ LOSS'}</div>
+        <div class="game-meta">${fmt(g.date)}</div>
+      </div>
+      ${homeSide}
+    `;
+  }
+
+  function renderLog(games) {
+    const el = document.getElementById('game-log');
+    if (!games.length) {
+      el.innerHTML = '<p style="color:var(--muted);text-align:center;padding:2rem">No games match this filter.</p>';
+      return;
     }
-];
+    el.innerHTML = games.map((g, i) => {
+      const res  = getResult(g);
+      const sc   = getScore(g);
+      const opp  = getOpp(g);
+      const home = isHome(g);
+      return `
+        <div class="game-row" id="game-${i}">
+          <div class="game-date">${fmt(g.date)}</div>
+          <div class="matchup">
+            <span>${opp.abbr}</span>
+            <span class="opp"> · ${opp.name}</span>
+            <span class="home-away-tag ${home ? 'home' : 'away'}">${home ? 'HOME' : 'AWAY'}</span>
+          </div>
+          <div class="score-col" style="color:${res === 'W' ? 'var(--win)' : 'var(--loss)'}">
+            ${sc.gsw} – ${sc.opp}
+          </div>
+          <div class="wl-badge ${res}">${res}</div>
+        </div>
+      `;
+    }).join('');
+  }
 
-// ===== APP STATE =====
-const STORAGE_KEY = 'aws-saa-study-planner-v2';
+  function setFilter(f) {
+    currentFilter = f;
+    ['all','wins','losses'].forEach(id => document.getElementById('btn-'+id).classList.remove('active'));
+    document.getElementById('btn-' + (f === 'all' ? 'all' : f === 'W' ? 'wins' : 'losses')).classList.add('active');
+    const filtered = f === 'all' ? allGames : allGames.filter(g => getResult(g) === f);
+    renderLog(filtered);
+  }
 
-function loadState() {
+  async function loadData() {
+    const btn = document.getElementById('refresh-btn');
+    btn.classList.add('spinning');
+
     try {
-        const saved = localStorage.getItem(STORAGE_KEY);
-        return saved ? JSON.parse(saved) : { completedDays: [], completedTasks: {}, studyHours: 0 };
-    } catch { return { completedDays: [], completedTasks: {}, studyHours: 0 }; }
-}
+      const res  = await fetch('games.json?t=' + Date.now());
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      const data = await res.json();
 
-function saveState(state) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-}
+      allGames = (data.games || []).filter(g => g.status === 'post');
+      // sort most-recent first
+      allGames.sort((a, b) => new Date(b.date) - new Date(a.date));
 
-let state = loadState();
+      const wins   = allGames.filter(g => getResult(g) === 'W').length;
+      const losses = allGames.filter(g => getResult(g) === 'L').length;
+      const total  = wins + losses;
+      const pct    = total ? (wins / total * 100).toFixed(1) + '%' : '—';
 
-// ===== COUNTDOWN =====
-function updateCountdown() {
-    const examDate = new Date('2026-06-29T13:00:00');
-    const now = new Date();
-    const diff = examDate - now;
-    if (diff <= 0) {
-        document.getElementById('cd-days').textContent = '0';
-        document.getElementById('cd-hours').textContent = '00';
-        document.getElementById('cd-mins').textContent = '00';
-        document.getElementById('cd-secs').textContent = '00';
-        return;
+      document.getElementById('stat-wins').textContent   = wins;
+      document.getElementById('stat-losses').textContent = losses;
+      document.getElementById('stat-pct').textContent    = pct;
+      document.getElementById('stat-streak').textContent = calcStreak(allGames);
+
+      const updated = data.updated ? new Date(data.updated).toLocaleDateString('en-US', { month:'short', day:'numeric' }) : 'N/A';
+      document.getElementById('updated-tag').textContent = 'Updated ' + updated;
+
+      if (allGames.length) renderLatest(allGames[0]);
+      renderLog(allGames);
+
+      document.getElementById('loading').style.display  = 'none';
+      document.getElementById('app').style.display      = 'block';
+      document.getElementById('error-banner').style.display = 'none';
+
+    } catch (err) {
+      console.error(err);
+      const banner = document.getElementById('error-banner');
+      banner.style.display = 'block';
+      banner.textContent   = '⚠ Could not load games.json. Make sure the server is running from the project folder. (' + err.message + ')';
+      document.getElementById('loading').style.display = 'none';
+      document.getElementById('app').style.display = 'block';
     }
-    document.getElementById('cd-days').textContent = Math.floor(diff / (1000*60*60*24));
-    document.getElementById('cd-hours').textContent = String(Math.floor((diff % (1000*60*60*24)) / (1000*60*60))).padStart(2, '0');
-    document.getElementById('cd-mins').textContent = String(Math.floor((diff % (1000*60*60)) / (1000*60))).padStart(2, '0');
-    document.getElementById('cd-secs').textContent = String(Math.floor((diff % (1000*60)) / 1000)).padStart(2, '0');
-}
-setInterval(updateCountdown, 1000);
-updateCountdown();
 
-// ===== HOURS TRACKER =====
-function updateHoursUI() {
-    const hrs = state.studyHours || 0;
-    const target = 80;
-    const pct = Math.min((hrs / 120) * 100, 100);
-    document.getElementById('hours-display').textContent = `${hrs.toFixed(1)} / ${target} hrs`;
-    document.getElementById('hours-bar').style.width = `${pct}%`;
+    btn.classList.remove('spinning');
+  }
 
-    // Milestone markers
-    [0, 40, 60, 80, 100, 120].forEach(m => {
-        const el = document.getElementById(`m-${m}`);
-        if (el && hrs >= m) el.classList.add('reached');
-        else if (el) el.classList.remove('reached');
-    });
-}
-
-function addHours() {
-    const input = document.getElementById('hours-input');
-    const val = parseFloat(input.value);
-    if (isNaN(val) || val <= 0) return;
-    state.studyHours = (state.studyHours || 0) + val;
-    saveState(state);
-    input.value = '';
-    updateHoursUI();
-    const msg = document.getElementById('hours-log-msg');
-    msg.textContent = `✓ Added ${val}h — Total: ${state.studyHours.toFixed(1)}h`;
-    setTimeout(() => msg.textContent = '', 3000);
-}
-
-updateHoursUI();
-
-// ===== RENDER DAYS =====
-function isToday(dateStr) {
-    const today = new Date();
-    const d = new Date(dateStr + 'T00:00:00');
-    return today.getFullYear() === d.getFullYear() && today.getMonth() === d.getMonth() && today.getDate() === d.getDate();
-}
-
-function formatDate(dateStr) {
-    const d = new Date(dateStr + 'T00:00:00');
-    return d.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
-}
-
-function getPhaseClass(phase) {
-    if (phase === 'course') return 'phase-course';
-    if (phase === 'lab') return 'phase-lab';
-    if (phase === 'exam') return 'phase-exam';
-    return 'phase-final';
-}
-
-function renderDays(filter) {
-    filter = filter || 'all';
-    const grid = document.getElementById('days-grid');
-    grid.innerHTML = '';
-    const filtered = filter === 'all' ? STUDY_DAYS : STUDY_DAYS.filter(d => d.phase === filter);
-
-    filtered.forEach(day => {
-        const isDayCompleted = state.completedDays.includes(day.day);
-        const isTodayDay = isToday(day.date);
-
-        const card = document.createElement('div');
-        card.className = `day-card ${getPhaseClass(day.phase)} ${isDayCompleted ? 'completed' : ''} ${isTodayDay ? 'today' : ''}`;
-        card.id = `day-${day.day}`;
-        if (isTodayDay) card.classList.add('expanded');
-
-        const tagsHTML = day.tags.map(t => `<span class="day-tag tag-${t}">${t}</span>`).join('');
-
-        card.innerHTML = `
-            <div class="day-header" onclick="toggleDay(${day.day})">
-                <div class="day-left">
-                    <div class="day-number">${day.day}</div>
-                    <div class="day-info">
-                        <h3>${day.title} ${isTodayDay ? '<span class="today-label">● TODAY</span>' : ''}</h3>
-                        <div class="date">${formatDate(day.date)}</div>
-                    </div>
-                </div>
-                <div class="day-right">
-                    ${tagsHTML}
-                    <span class="time-est">${day.timeEst}</span>
-                    <div class="day-check ${isDayCompleted ? 'checked' : ''}" onclick="event.stopPropagation(); toggleDayComplete(${day.day})"></div>
-                    <span class="expand-icon">▼</span>
-                </div>
-            </div>
-            <div class="day-body">
-                <div class="day-content">
-                    ${day.sections.map(section => `
-                        <div class="section-label">${section.label}</div>
-                        <ul class="task-list">
-                            ${section.tasks.map((task, ti) => {
-                                const taskKey = `${day.day}-${ti}-${section.label.substring(0,10)}`;
-                                const isChecked = state.completedTasks[taskKey];
-                                return `
-                                    <li class="task-item">
-                                        <div class="task-check ${isChecked ? 'checked' : ''}" onclick="toggleTask('${taskKey}', this)"></div>
-                                        <span class="task-text">${task}</span>
-                                    </li>`;
-                            }).join('')}
-                        </ul>
-                    `).join('')}
-                </div>
-            </div>`;
-        grid.appendChild(card);
-    });
-    updateProgress();
-}
-
-function toggleDay(dayNum) { document.getElementById(`day-${dayNum}`).classList.toggle('expanded'); }
-
-function toggleDayComplete(dayNum) {
-    if (state.completedDays.includes(dayNum)) state.completedDays = state.completedDays.filter(d => d !== dayNum);
-    else state.completedDays.push(dayNum);
-    saveState(state);
-    renderDays(currentFilter);
-}
-
-function toggleTask(taskKey, el) {
-    state.completedTasks[taskKey] = !state.completedTasks[taskKey];
-    saveState(state);
-    el.classList.toggle('checked');
-    updateProgress();
-}
-
-function updateProgress() {
-    let totalTasks = 0, completedTasksCount = 0;
-    STUDY_DAYS.forEach(day => {
-        day.sections.forEach(section => {
-            section.tasks.forEach((_, ti) => {
-                totalTasks++;
-                const taskKey = `${day.day}-${ti}-${section.label.substring(0,10)}`;
-                if (state.completedTasks[taskKey]) completedTasksCount++;
-            });
-        });
-    });
-    const pct = totalTasks > 0 ? Math.round((completedTasksCount / totalTasks) * 100) : 0;
-    document.getElementById('progress-pct').textContent = `${pct}%`;
-    document.getElementById('progress-bar').style.width = `${pct}%`;
-
-    const courseDone = state.completedDays.filter(d => STUDY_DAYS.find(sd => sd.day === d && sd.phase === 'course')).length;
-    const labDone = state.completedDays.filter(d => STUDY_DAYS.find(sd => sd.day === d && sd.phase === 'lab')).length;
-    const examDone = state.completedDays.filter(d => STUDY_DAYS.find(sd => sd.day === d && sd.phase === 'exam')).length;
-    document.getElementById('stat-course').textContent = `${courseDone}/15`;
-    document.getElementById('stat-lab').textContent = `${labDone}/1`;
-    document.getElementById('stat-exam').textContent = `${examDone}/3`;
-}
-
-function resetProgress() {
-    if (confirm('Reset all progress including study hours? This cannot be undone.')) {
-        state = { completedDays: [], completedTasks: {}, studyHours: 0 };
-        saveState(state);
-        renderDays(currentFilter);
-        updateHoursUI();
-    }
-}
-
-// ===== FAQ =====
-function renderFAQ() {
-    const list = document.getElementById('faq-list');
-    FAQ_DATA.forEach((faq, i) => {
-        const item = document.createElement('div');
-        item.className = 'faq-item';
-        item.innerHTML = `
-            <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
-                <span>${faq.q}</span>
-                <span class="faq-icon">+</span>
-            </div>
-            <div class="faq-a"><div class="faq-a-inner">${faq.a}</div></div>`;
-        list.appendChild(item);
-    });
-}
-renderFAQ();
-
-// ===== PHASE TABS =====
-let currentFilter = 'all';
-document.querySelectorAll('.phase-tab').forEach(tab => {
-    tab.addEventListener('click', () => {
-        document.querySelectorAll('.phase-tab').forEach(t => t.classList.remove('active'));
-        tab.classList.add('active');
-        currentFilter = tab.dataset.phase;
-        renderDays(currentFilter);
-    });
-});
-
-// ===== INIT =====
-renderDays();
-
-// Smooth scroll
-document.querySelectorAll('.nav-links a').forEach(link => {
-    link.addEventListener('click', (e) => {
-        e.preventDefault();
-        const target = document.querySelector(link.getAttribute('href'));
-        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        document.querySelectorAll('.nav-links a').forEach(l => l.classList.remove('active'));
-        link.classList.add('active');
-    });
-});
+  loadData();
 </script>
 </body>
 </html>
